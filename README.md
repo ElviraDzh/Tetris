@@ -1,1 +1,0 @@
-Askat was here.

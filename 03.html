@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task #3</title>
+  </head>
+  <body>
+    <script>
+      let userNumber = parseInt(
+        prompt("Please enter a number between 1 and 20(including):")
+      );
+      while (userNumber > 20 || userNumber < 1 || isNaN(userNumber)) {
+        userNumber = parseInt(
+          prompt("Please enter a number between 1 and 20:")
+        );
+      }
+      let integerNumber = Math.round(userNumber);
+      const array = [];
+      for (i = 0; i < integerNumber; i++) {
+        let randomNumber = Math.floor(Math.random() * 101);
+        array.push(randomNumber);
+      }
+      alert(
+        `This is an array of numbers: ${array}\n A length of the array: ${integerNumber}`
+      );
+    </script>
+  </body>
+</html>
