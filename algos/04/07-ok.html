@@ -21,6 +21,23 @@
         }
       }
       console.log(concat);
+
+      // You did great.
+      
+      console.log('Another way 1:');
+      for (let i = 0; i < array.length; i++) {
+	  let s = "";
+	  for (let j = 0; j < array[i].length; j++) {
+	      s += `[${array[i][j]}]`;
+	  }
+	  console.log(s);
+      }
+
+      console.log('Another way 2:');
+      for (let i = 0; i < array.length; i++) {
+	  let s = '[' + array[i].join('][') + ']';
+	  console.log(s);
+      }
     </script>
   </body>
 </html>

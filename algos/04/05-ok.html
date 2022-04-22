@@ -11,7 +11,7 @@
       let firstArr = [1, 2, -3, 4, 5];
       let secondArr = [1, 2, -3, 4, 5];
       let n = 0;
-      function equals(arr1, arr2) {
+      function equals_(arr1, arr2) {
         if (arr1.length === arr2.length) {
           for (i = 0; i < arr1.length; i++) {
             if (arr1[i] === arr2[i]) {
@@ -24,6 +24,19 @@
         } else {
           return false;
         }
+      }
+
+      // You did good. Another way with less code:
+      function equals(arr1, arr2) {
+	  if (arr1.length != arr2.length) return false;
+
+	  for (i = 0; i < arr1.length; i++) {
+	      if (arr1[i] != arr2[i]) {
+		  return false;
+	      }
+	  }
+	     
+	  return true;
       }
       console.log(equals(firstArr, secondArr));
     </script>
