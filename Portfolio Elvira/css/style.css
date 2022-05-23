@@ -354,3 +354,39 @@ h2 {
 .section-portfolio {
   padding: 150px 0 55px;
 }
+.portfolio-list {
+  padding: 15px;
+}
+.portfolio-list .item {
+  position: relative;
+  width: 250px;
+  border: 1px solid rgb(0 0 0 / 4%);
+  border-radius: 5px;
+  text-align: center;
+}
+.portfolio-list .list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -45px;
+}
+.portfolio-list .list li {
+  width: 33.33%;
+  padding-top: 45px;
+  padding-left: 45px;
+  margin-bottom: 45px;
+}
+
+.project-img img {
+  border-radius: 5px;
+  display: block;
+}
+
+.project-title {
+  text-transform: uppercase;
+  margin-bottom: 9px;
+  display: block;
+  color: #000;
+}
