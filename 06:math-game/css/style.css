@@ -1,0 +1,70 @@
+body {
+  background: url(../images/math-background-footage-024480096_prevstill.webp)
+    center no-repeat;
+  background-size: cover;
+}
+
+.main-block {
+  max-width: 500px;
+  margin: 150px auto;
+  min-height: 60vh;
+  background-color: rgba(195, 195, 236, 0.9);
+}
+.main-block .main-title {
+  color: #1266f1;
+}
+.button {
+  border: none;
+}
+.block-input {
+  border: 2px solid #cfbaf0;
+  border-radius: 6px;
+}
+.dropdown {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 50px;
+}
+.btn-dropdown {
+  background-color: #fff;
+  color: #1266f1;
+  padding: 5px 15px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.btn-dropdown:hover,
+.dropbtn:focus {
+  background-color: #1266f1;
+  color: #fff;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 20%;
+  top: 69%;
+  background-color: #f1f1f1;
+  min-width: 110px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  text-align: center;
+  border-radius: 5px;
+}
+.content {
+  color: black;
+  padding: 7px 16px;
+  text-transform: capitalize;
+  margin: 0;
+}
+.content:hover {
+  background-color: #ddd;
+  text-decoration: none;
+  color: #1266f1;
+}
+.show {
+  display: block;
+}
