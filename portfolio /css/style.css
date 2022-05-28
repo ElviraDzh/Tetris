@@ -390,3 +390,75 @@ h2 {
   display: block;
   color: #000;
 }
+
+/*                            CONTACT                                        */
+.section-contact {
+  padding: 150px 0 200px 0;
+}
+.contact-footer {
+  display: flex;
+}
+
+.contact-footer-form {
+  width: 100%;
+}
+
+.nameEmail {
+  display: flex;
+}
+#name,
+#email {
+  width: 50%;
+}
+#email {
+  margin-left: 20px;
+}
+.contact-footer-form input {
+  background-color: #f2f2f2;
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.contact-footer-form textarea {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 3px;
+  min-height: 250px;
+  max-height: 500px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.contact-footer-form input[type="submit"] {
+  background-color: #ff5251;
+  color: #fffeff;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.contact-footer-address {
+  padding-left: 50px;
+}
+.contact-footer-address small {
+  margin: 0;
+  text-transform: uppercase;
+}
+.contact-footer-address h4 {
+  color: #0e090d;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.contact-footer-address a {
+  /* display: inline-block; */
+  color: #777;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #777;
+  text-decoration: none;
+}
