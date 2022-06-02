@@ -1,0 +1,129 @@
+@media screen and (max-width: 768px) {
+  .control-block {
+    display: flex;
+    justify-content: space-between;
+  }
+  .sidebar {
+    height: 1052px;
+  }
+  .btns-sidebar {
+    display: none;
+  }
+}
+@media screen and (max-width: 680px) {
+  .panel {
+    max-width: 446px;
+  }
+  .next-block {
+    width: 57%;
+  }
+  .score-block {
+    width: 40%;
+  }
+  .sidebar {
+    display: none;
+  }
+  .play-area {
+    min-width: 100%;
+    border: none;
+    margin: 5px auto;
+    border: 3px solid orangered;
+  }
+
+  .control-block {
+    width: 100%;
+    padding: 15px;
+  }
+}
+@media screen and (max-width: 630px) {
+  .panel {
+    max-width: 400px;
+  }
+  /* .next-block {
+    width: 57%;
+  }
+  .score-block {
+    width: 40%;
+  } */
+}
+@media screen and (max-width: 430px) {
+  .panel {
+    max-width: 350px;
+  }
+  .next-block {
+    width: 57%;
+    /* width: 180px; */
+    height: 80px;
+  }
+  .score-block {
+    height: 80px;
+  }
+  .label {
+    font-size: 18px;
+  }
+  .next-figure-bg {
+    width: 90px;
+    height: 54px;
+  }
+  .arrow-btn {
+    padding: 12px;
+    margin: 50px 1px 0 1px;
+  }
+  .arrow-btn i {
+    font-size: 16px;
+  }
+  .arrow-up {
+    top: -22%;
+  }
+  .btn {
+    padding: 1em 2.5em;
+    font-size: 16px;
+    margin: 0 auto 10px auto;
+  }
+}
+@media screen and (max-width: 376px) {
+  .panel {
+    max-width: 350px;
+  }
+  .next-block {
+    width: 56%;
+  }
+  .score-block {
+    width: 40%;
+  }
+  .label {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 335px) {
+  .arrow-btn {
+    padding: 9px;
+    margin: 50px 1px 0 1px;
+  }
+  .btn {
+    padding: 0.7em 1.7em;
+    font-size: 16px;
+    margin: 0 auto 10px auto;
+  }
+  .arrow-up {
+    top: -18%;
+  }
+}
+@media screen and (max-width: 318px) {
+  .next-block {
+    padding-left: 15px;
+    display: block;
+    width: 100%;
+    margin-left: 0px;
+  }
+  .next-block-inner {
+    justify-content: left;
+  }
+  .score-block {
+    display: block;
+    width: 100%;
+    padding-left: 15px;
+  }
+}
+@media screen and (min-height: 640px) and (orientation: portrait) {
+}
