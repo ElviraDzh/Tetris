@@ -69,15 +69,8 @@ body {
 .next-block-inner p {
   align-self: center;
 }
-
-.play-area {
-  max-width: 62%;
+svg {
   margin-top: 5px;
-}
-.play-area img {
-  max-width: 100%;
-  height: auto;
-  display: block;
 }
 /*                      SIDEBAR                             */
 .sidebar {
@@ -90,7 +83,7 @@ body {
   padding: 10px;
 }
 .sidebar-links-top {
-  margin-bottom: 50px;
+  margin: 30px 0;
 }
 .sidebar-link {
   display: block;

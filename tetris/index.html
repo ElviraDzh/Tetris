@@ -34,7 +34,7 @@
         <aside class="sidebar">
           <div class="sidebar-links-top">
             <a href="#" class="sidebar-link">login</a>
-            <a href="#" class="sidebar-link">register</a>
+            <a href="#" class="sidebar-link">sign up</a>
           </div>
           <div class="language-right">
             <div class="language-dropdown">
@@ -48,8 +48,13 @@
             </div>
           </div>
           <div class="btns-sidebar">
-            <button class="btn" id="reset-button">reset</button>
-            <button class="btn" id="pause-button">pause</button>
+            <button class="btn" id="play-button" onclick="play()">play</button>
+            <button class="btn" id="reset-button" onclick="reset()">
+              reset
+            </button>
+            <button class="btn" id="pause-button" onclick="pause()">
+              pause
+            </button>
           </div>
           <table>
             <thead>
@@ -130,248 +135,14 @@
             <a href="#" class="sidebar-bottom-link feedback-link">feedback</a>
           </div>
         </aside>
-        <div class="play-area">
-          <svg width="402" height="800">
-            <rect
-              width="402"
-              height="800"
-              style="fill: #403d39; stroke: orangered; stroke-width: 5"
-            />
-            <rect
-              id="square"
-              x="2"
-              y="2"
-              width="36"
-              height="36"
-              style="fill: orange"
-            />
-            <line
-              x1="40"
-              y1="2"
-              x2="40"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="40"
-              x2="400"
-              y2="40"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="80"
-              y1="2"
-              x2="80"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="80"
-              x2="400"
-              y2="80"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="120"
-              y1="2"
-              x2="120"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="120"
-              x2="400"
-              y2="120"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="160"
-              y1="2"
-              x2="160"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="160"
-              x2="400"
-              y2="160"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="200"
-              y1="2"
-              x2="200"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="200"
-              x2="400"
-              y2="200"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="240"
-              y1="2"
-              x2="240"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="240"
-              x2="400"
-              y2="240"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="280"
-              y1="2"
-              x2="280"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="280"
-              x2="400"
-              y2="280"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="320"
-              y1="2"
-              x2="320"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="320"
-              x2="400"
-              y2="320"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="360"
-              y1="2"
-              x2="360"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="360"
-              x2="400"
-              y2="360"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="400"
-              x2="400"
-              y2="400"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="440"
-              y1="2"
-              x2="440"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="440"
-              x2="400"
-              y2="440"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="480"
-              y1="2"
-              x2="480"
-              y2="898"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="480"
-              x2="400"
-              y2="480"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="520"
-              x2="400"
-              y2="520"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="560"
-              x2="400"
-              y2="560"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="600"
-              x2="400"
-              y2="600"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="640"
-              x2="400"
-              y2="640"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="680"
-              x2="400"
-              y2="680"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="720"
-              x2="400"
-              y2="720"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="760"
-              x2="400"
-              y2="760"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="800"
-              x2="400"
-              y2="800"
-              style="stroke: grey; stroke-width: 1"
-            />
-            <line
-              x1="2"
-              y1="840"
-              x2="400"
-              y2="840"
-              style="stroke: grey; stroke-width: 1"
-            />
-          </svg>
-          <div class="figure"></div>
-        </div>
+        <svg width="402" height="800">
+          <rect
+            width="402"
+            height="800"
+            style="fill: #403d39; stroke: orangered; stroke-width: 5"
+          />
+        </svg>
+        <div class="figure"></div>
         <div class="control-block">
           <div class="arrow-buttons">
             <button class="arrow-btn">

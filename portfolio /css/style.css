@@ -23,15 +23,13 @@ img {
 
 .sidebar {
   width: 350px;
-  /* float: left; */
   position: fixed;
   top: 0;
   left: 0;
   background-color: #f6efef;
   z-index: 20;
   padding: 15vh 20px;
-  /* box-shadow: 2px 1px 7px 5px rgba(239, 239, 246, 0.75); */
-  /* transition: transform 0.5s ease; */
+  height: 100%;
 }
 .shifter ul {
   position: absolute;
@@ -94,16 +92,12 @@ h2 {
 /*                                 HOME                     */
 .content {
   width: 100%;
-  /* position: relative;
-  z-index: 10; */
   padding-left: 340px;
-  /* transition: padding 0.5s ease; */
 }
 
 .section-home {
   display: flex;
   align-items: center;
-  /* position: relative; */
 }
 .section-home .home-left {
   display: flex;
@@ -182,11 +176,18 @@ h2 {
   border-radius: 0.6em;
   box-shadow: 0 3px 20px rgb(0 0 0 / 4%);
   background-color: #fff;
-  z-index: -1;
 }
+.perspective-left {
+  transform: perspective(1500px) rotateY(15deg);
+  transition: transform 1s ease 0s;
+}
+.perspective-left:hover {
+  transform: perspective(3000px) rotateY(5deg);
+}
+
 .section-about .left-in {
   border: 1px solid transparent;
-  padding: 67px 30px 64px;
+  padding: 60px 30px 60px;
   margin: 0;
 }
 .section-about .about-left ul {
@@ -233,6 +234,15 @@ h2 {
   width: 50%;
   padding-left: 30px;
 }
+
+/* .perspective-right {
+  transform: perspective(1500px) rotateY(-15deg);
+  transition: transform 1s ease 0s;
+}
+
+.perspective-right:hover {
+  transform: perspective(3000px) rotateY(-5deg);
+} */
 
 .section-about .about-me {
   padding-bottom: 33px;
