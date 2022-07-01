@@ -393,11 +393,26 @@ h2 {
 }
 .portfolio-list .item {
   position: relative;
-  width: 250px;
-  border: 1px solid rgb(0 0 0 / 4%);
+  width: 350px;
+  border: 1px solid rgb(0, 0, 0, 0.1);
   border-radius: 5px;
   text-align: center;
+  overflow: hidden;
 }
+.portfolio-list .item .project-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: all 1s ease-in-out;
+}
+
+.portfolio-list .item:hover .project-overlay {
+  top: 0;
+}
+
 .portfolio-list .list {
   margin: 0;
   padding: 0;
@@ -413,16 +428,30 @@ h2 {
   margin-bottom: 45px;
 }
 
-.project-img img {
+.item .portfolio-img {
   border-radius: 5px;
   display: block;
 }
-
-.project-title {
-  text-transform: uppercase;
+.project-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+.project-title,
+.project-subt {
   margin-bottom: 9px;
   display: block;
-  color: #000;
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.project-title {
+  font-size: 24px;
+}
+.project-subt {
+  font-size: 15px;
 }
 
 /*                            CONTACT                                        */
@@ -490,7 +519,6 @@ h2 {
 }
 
 .contact-footer-address a {
-  /* display: inline-block; */
   color: #777;
   padding-bottom: 1px;
   border-bottom: 1px solid #777;
