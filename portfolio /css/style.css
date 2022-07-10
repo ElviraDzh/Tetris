@@ -42,7 +42,7 @@ img {
   list-style-type: none;
   padding-top: 130px;
 }
-.shifter ul li span {
+.shifter ul li .dot {
   display: inline-block;
   height: 6px;
   width: 15px;
@@ -370,9 +370,11 @@ h2 {
   padding: 0;
 }
 .resume-list li {
+  position: relative;
   list-style: none;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1rem;
   border-bottom: 1px solid #e5e5e5;
+  transition: all 0.75s ease-in-out;
 }
 .resume-list .middle-text {
   font-weight: 600;
@@ -384,7 +386,17 @@ h2 {
   display: inline-block;
   width: 30%;
 }
-/*                        PORTFOLIO                              */
+.hover-box .dots .dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.resume-list ul li:hover {
+  background-color: #f6efef;
+  cursor: pointer;
+}
+
+/* /*                        PORTFOLIO                              */
 .section-portfolio {
   padding: 150px 0 55px;
 }
