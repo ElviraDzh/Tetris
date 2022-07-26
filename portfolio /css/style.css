@@ -50,14 +50,17 @@ img {
   transform: rotate(20deg);
 }
 .sidebar-in {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
+  height: 100%;
 }
 h2 {
   margin: 0;
 }
-.logo {
-  margin-bottom: 3rem;
-}
+
 .dot-header {
   display: inline-block;
   height: 9px;
@@ -67,12 +70,11 @@ h2 {
 }
 .logo-link {
   font-family: "Satisfy", cursive;
-  font-size: calc(42px + 1.5vw);
+  font-size: 3.5em;
   text-decoration: none;
   color: #1b1a1f;
 }
 .navigation ul {
-  padding: 160px 0;
   margin: 0;
 }
 .navigation ul li {
@@ -91,7 +93,6 @@ h2 {
 
 /*                                 HOME                     */
 .content {
-  width: 100%;
   padding-left: 340px;
 }
 
@@ -103,19 +104,14 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 52%;
-  /* min-width: 52%; */
-  padding: 67px 0;
   justify-content: center;
   min-height: 100vh;
-  z-index: 5;
 }
 .section-home h2 {
   font-weight: 600;
-  font-size: calc(40px + 2.5vw);
+  font-size: 4em;
   text-transform: uppercase;
   line-height: 0.9;
-  /* position: relative;
-  left: -5px; */
   color: #0e090d;
   margin-bottom: 20px;
 }
@@ -171,24 +167,21 @@ h2 {
 .section-about .about-left {
   width: 50%;
   padding-right: 30px;
-  position: relative;
   border: 1px solid #f6efef;
   border-radius: 0.6em;
-  box-shadow: 0 3px 20px rgb(0 0 0 / 4%);
+  box-shadow: 0 3px 20px rgb(0 0 0 / 0.1);
   background-color: #fff;
 }
 .perspective-left {
-  transform: perspective(1500px) rotateY(15deg);
+  transform: perspective(1500px) rotateY(20deg);
   transition: transform 1s ease 0s;
 }
 .perspective-left:hover {
-  transform: perspective(3000px) rotateY(5deg);
+  transform: perspective(3000px) rotateY(0deg);
 }
 
 .section-about .left-in {
-  border: 1px solid transparent;
   padding: 60px 30px 60px;
-  margin: 0;
 }
 .section-about .about-left ul {
   margin: 0;
@@ -197,14 +190,11 @@ h2 {
 }
 .section-about .about-left li {
   margin-bottom: 20px;
-  display: flex;
-  width: 100%;
 }
 .section-about .about-left h5 {
   display: flex;
   font-size: 18px;
   font-weight: 600;
-  min-width: 100px;
   margin: 0;
 }
 .section-about .about-left .about-title {
@@ -234,15 +224,6 @@ h2 {
   width: 50%;
   padding-left: 30px;
 }
-
-/* .perspective-right {
-  transform: perspective(1500px) rotateY(-15deg);
-  transition: transform 1s ease 0s;
-}
-
-.perspective-right:hover {
-  transform: perspective(3000px) rotateY(-5deg);
-} */
 
 .section-about .about-me {
   padding-bottom: 33px;
@@ -308,19 +289,19 @@ h2 {
   margin: 0;
   padding: 0;
 }
-.section-services .grid-item {
+.section-services .list-item {
   width: 50%;
   margin-bottom: 60px;
 }
 
-.section-services .grid-item:nth-of-type(even) {
+.section-services .list-item:nth-of-type(even) {
   padding-left: 30px;
 }
-.section-services .grid-item:nth-of-type(odd) {
+.section-services .list-item:nth-of-type(odd) {
   padding-right: 30px;
 }
 
-.section-services .grid-item a {
+.section-services .list-item a {
   text-decoration: none;
   display: inline-block;
   color: #777;
@@ -332,10 +313,10 @@ h2 {
   box-shadow: 0 3px 20px rgb(0 0 0 / 4%);
   border-radius: 8px;
 }
-.section-services .grid-item a:hover {
+.section-services .list-item a:hover {
   box-shadow: 0 3px 15px rgb(0 0 0 / 8%);
 }
-.grid-item h4 {
+.list-item h4 {
   text-align: center;
   margin: 0;
   font-weight: 500;
@@ -365,12 +346,9 @@ h2 {
   padding: 100px 0 40px 0;
 }
 .resume-list ul {
-  display: flex;
-  flex-direction: column;
   padding: 0;
 }
 .resume-list li {
-  position: relative;
   list-style: none;
   padding: 1.5rem 1rem;
   border-bottom: 1px solid #e5e5e5;
@@ -386,11 +364,7 @@ h2 {
   display: inline-block;
   width: 30%;
 }
-.hover-box .dots .dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+
 .resume-list ul li:hover {
   background-color: #f6efef;
   cursor: pointer;

@@ -25,7 +25,7 @@ body {
 
 .panel {
   max-width: 656px;
-  margin: 70px auto;
+  margin: 0 auto;
 }
 .score-block,
 .next-block {
@@ -68,8 +68,16 @@ body {
 .next-block-inner p {
   align-self: center;
 }
-svg {
+
+.main-area {
+  width: 400px;
+  height: 800px;
+  background-color: #403d39;
+  border: 3px solid orangered;
   margin-top: 5px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(20, 1fr);
 }
 /*                      SIDEBAR                             */
 .sidebar {
@@ -166,11 +174,9 @@ table {
   text-align: center;
   margin: 20px auto;
   font-size: 14px;
-  position: scroll;
-}
-table {
   border: 1px solid grey;
   border-spacing: 1px;
+  height: 50px;
 }
 
 th,
@@ -179,19 +185,21 @@ td {
   padding: 0 10px;
 }
 tr {
-  transition: all 0.7s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 tr:hover {
-  /* background-color: #929292; */
   background-color: #fb5607;
 }
-
+thead tr {
+  position: sticky;
+  background: linear-gradient(to bottom, #457b9d, #0096c7);
+}
 .sidebar-links-bottom {
   display: flex;
   flex-wrap: wrap;
   text-transform: uppercase;
   justify-content: center;
-  height: 23%;
+  height: 20%;
 }
 
 .help-link {

@@ -46,7 +46,7 @@ function makeLines() {
     y += 40;
   }
 }
-makeLines();
+// makeLines();
 
 function moveShape() {
   let transformAttr = "translate(" + currentX + "," + currentY + ")";
@@ -83,8 +83,8 @@ function goDown() {
 }
 
 document.addEventListener("keydown", (e) => {
-  switch (e.keyCode) {
-    case 37:
+  switch (e.code) {
+    case "ArrowLeft":
       //left
       if (currentX >= -120) {
         currentX -= 40;
@@ -92,7 +92,7 @@ document.addEventListener("keydown", (e) => {
         console.log("left:" + currentX);
       }
       break;
-    case 39:
+    case "ArrowRight":
       //right
       if (currentX <= 160) {
         currentX += 40;
@@ -100,9 +100,81 @@ document.addEventListener("keydown", (e) => {
         console.log("right:" + currentX);
       }
       break;
-    case 40:
+    case "ArrowDown":
       //down
       goDown();
       break;
   }
 });
+
+const mainArrayDiv = [];
+
+const createDiv = () => {
+  const newDiv = document.createElement("div");
+  newDiv.style.width = "39px";
+  newDiv.style.height = "39px";
+  newDiv.style.borderBottom = "1px solid grey";
+  newDiv.style.borderRight = "1px solid grey";
+  const playArea = document.getElementById("playArea");
+  playArea.append(newDiv);
+
+  return newDiv;
+};
+
+function createDivArray() {
+  for (let i = 0; i < 20; i++) {
+    const array = [];
+    for (let j = 0; j < 10; j++) {
+      const div = createDiv();
+      array[j] = div;
+    }
+    mainArrayDiv.push(array);
+    console.log(mainArrayDiv);
+  }
+}
+createDivArray();
+
+const figureArray = [
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "G", "G", "", "", "", "", ""],
+  ["", "", "", "G", "G", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", "P"],
+  ["", "", "", "", "", "", "", "", "", "P"],
+  ["W", "", "", "", "", "Y", "Y", "R", "R", "P"],
+  ["W", "", "", "B", "", "Y", "R", "R", "", "P"],
+  ["W", "W", "", "B", "B", "Y", "G", "G", "B", "B"],
+  ["O", "O", "O", "O", "B", "G", "G", "", "B", "B"],
+];
+
+for (let i = 0; i < 20; i++) {
+  for (let j = 0; j < 10; j++) {
+    if (figureArray[i][j] === "Y") {
+      mainArrayDiv[i][j].style.backgroundColor = "yellow";
+    } else if (figureArray[i][j] === "G") {
+      mainArrayDiv[i][j].style.backgroundColor = "green";
+    } else if (figureArray[i][j] === "R") {
+      mainArrayDiv[i][j].style.backgroundColor = "red";
+    } else if (figureArray[i][j] === "B") {
+      mainArrayDiv[i][j].style.backgroundColor = "blue";
+    } else if (figureArray[i][j] === "P") {
+      mainArrayDiv[i][j].style.backgroundColor = "purple";
+    } else if (figureArray[i][j] === "O") {
+      mainArrayDiv[i][j].style.backgroundColor = "orangered";
+    } else if (figureArray[i][j] === "W") {
+      mainArrayDiv[i][j].style.backgroundColor = "white";
+      // } else if (figureArray[i][j] === "") {
+      //   mainArrayDiv[i][j].style.backgroundColor = "white";
+    }
+  }
+}
