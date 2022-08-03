@@ -5,7 +5,7 @@
 body {
   background: url(../images/wallpaper.jpg) center no-repeat;
   background-size: cover;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Corben", cursive;
   font-size: 14px;
   background-color: #fff;
   line-height: 1.7;
@@ -171,16 +171,20 @@ i {
   background: linear-gradient(to bottom, #457b9d, #0096c7);
 }
 table {
+  width: 100%;
+  display: block;
   text-align: center;
   margin: 20px auto;
   font-size: 14px;
   border: 1px solid grey;
   border-spacing: 1px;
-  height: 50px;
+  max-height: 244px;
+  overflow-y: auto;
 }
 
 th,
 td {
+  width: 100%;
   border: 1px solid grey;
   padding: 0 10px;
 }
@@ -192,6 +196,26 @@ tr:hover {
 }
 thead tr {
   position: sticky;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to bottom, #457b9d, #0096c7);
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #457b9d, #0096c7);
 }
 .sidebar-links-bottom {

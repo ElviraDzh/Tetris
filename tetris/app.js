@@ -1,3 +1,4 @@
+/*
 let currentX = 0;
 let currentY = 0;
 let timerInterval = null;
@@ -106,7 +107,21 @@ document.addEventListener("keydown", (e) => {
       break;
   }
 });
+*/
 
+function play() {}
+function myFunction() {}
+
+const figures = {
+  1: [
+    ["", ""],
+    ["", ""],
+  ],
+  2: [
+    ["", "", ""],
+    ["", "", ""],
+  ],
+};
 const mainArrayDiv = [];
 
 const createDiv = () => {
@@ -134,29 +149,9 @@ function createDivArray() {
 }
 createDivArray();
 
-const figureArray = [
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "G", "G", "", "", "", "", ""],
-  ["", "", "", "G", "G", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", "P"],
-  ["", "", "", "", "", "", "", "", "", "P"],
-  ["W", "", "", "", "", "Y", "Y", "R", "R", "P"],
-  ["W", "", "", "B", "", "Y", "R", "R", "", "P"],
-  ["W", "W", "", "B", "B", "Y", "G", "G", "B", "B"],
-  ["O", "O", "O", "O", "B", "G", "G", "", "B", "B"],
-];
+// const figureArray = [["", "", "", ""],
 
+/*
 for (let i = 0; i < 20; i++) {
   for (let j = 0; j < 10; j++) {
     if (figureArray[i][j] === "Y") {
@@ -173,8 +168,7 @@ for (let i = 0; i < 20; i++) {
       mainArrayDiv[i][j].style.backgroundColor = "orangered";
     } else if (figureArray[i][j] === "W") {
       mainArrayDiv[i][j].style.backgroundColor = "white";
-      // } else if (figureArray[i][j] === "") {
-      //   mainArrayDiv[i][j].style.backgroundColor = "white";
     }
   }
 }
+*/
