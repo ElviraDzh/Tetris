@@ -112,16 +112,6 @@ document.addEventListener("keydown", (e) => {
 function play() {}
 function myFunction() {}
 
-const figures = {
-  1: [
-    ["", ""],
-    ["", ""],
-  ],
-  2: [
-    ["", "", ""],
-    ["", "", ""],
-  ],
-};
 const mainArrayDiv = [];
 
 const createDiv = () => {
@@ -144,31 +134,92 @@ function createDivArray() {
       array[j] = div;
     }
     mainArrayDiv.push(array);
-    console.log(mainArrayDiv);
   }
 }
 createDivArray();
 
-// const figureArray = [["", "", "", ""],
+let randomNumFig = Math.floor(Math.random() * 7) + 1;
+let randomNumRow = Math.floor(Math.random() * 19);
+let randomNumCol = Math.floor(Math.random() * 7);
 
-/*
+const colorArray = ["B", "G", "O", "Y", "W", "P"];
+randomColor = Math.floor(Math.random() * colorArray.length);
+
+const figures = {
+  1: [
+    ["*", "*"],
+    ["*", "*"],
+  ],
+  2: [
+    ["", "*", ""],
+    ["*", "*", "*"],
+  ],
+  3: [
+    ["*", "", ""],
+    ["*", "*", "*"],
+  ],
+  4: [
+    ["*", "*", ""],
+    ["", "*", "*"],
+  ],
+  5: [
+    ["", "*", "*"],
+    ["*", "*", ""],
+  ],
+  6: [
+    ["", "", "*"],
+    ["*", "*", "*"],
+  ],
+  7: [["*", "*", "*", "*"]],
+};
+
+const modelArray = [
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", "", ""],
+];
+
+for (let i = 0; i < figures[randomNumFig].length; i++) {
+  for (let j = 0; j < figures[randomNumFig][i].length; j++) {
+    if (figures[randomNumFig][i][j] === "*") {
+      modelArray[randomNumRow + i][randomNumCol + j] = colorArray[randomColor];
+    }
+  }
+}
+
 for (let i = 0; i < 20; i++) {
   for (let j = 0; j < 10; j++) {
-    if (figureArray[i][j] === "Y") {
+    if (modelArray[i][j] === "Y") {
       mainArrayDiv[i][j].style.backgroundColor = "yellow";
-    } else if (figureArray[i][j] === "G") {
+    } else if (modelArray[i][j] === "G") {
       mainArrayDiv[i][j].style.backgroundColor = "green";
-    } else if (figureArray[i][j] === "R") {
+    } else if (modelArray[i][j] === "R") {
       mainArrayDiv[i][j].style.backgroundColor = "red";
-    } else if (figureArray[i][j] === "B") {
+    } else if (modelArray[i][j] === "B") {
       mainArrayDiv[i][j].style.backgroundColor = "blue";
-    } else if (figureArray[i][j] === "P") {
+    } else if (modelArray[i][j] === "P") {
       mainArrayDiv[i][j].style.backgroundColor = "purple";
-    } else if (figureArray[i][j] === "O") {
+    } else if (modelArray[i][j] === "O") {
       mainArrayDiv[i][j].style.backgroundColor = "orangered";
-    } else if (figureArray[i][j] === "W") {
+    } else if (modelArray[i][j] === "W") {
       mainArrayDiv[i][j].style.backgroundColor = "white";
     }
   }
 }
-*/
