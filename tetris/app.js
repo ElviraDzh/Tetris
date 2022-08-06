@@ -109,17 +109,15 @@ document.addEventListener("keydown", (e) => {
 });
 */
 
-function play() {}
-function myFunction() {}
-
 const mainArrayDiv = [];
 
 const createDiv = () => {
   const newDiv = document.createElement("div");
-  newDiv.style.width = "39px";
-  newDiv.style.height = "39px";
-  newDiv.style.borderBottom = "1px solid grey";
-  newDiv.style.borderRight = "1px solid grey";
+  newDiv.style.cssText = `
+  width:39px;
+  height:39px;
+  border-bottom:1px solid grey;
+  border-right:1px solid grey;`;
   const playArea = document.getElementById("playArea");
   playArea.append(newDiv);
 
@@ -138,88 +136,105 @@ function createDivArray() {
 }
 createDivArray();
 
-let randomNumFig = Math.floor(Math.random() * 7) + 1;
-let randomNumRow = Math.floor(Math.random() * 19);
-let randomNumCol = Math.floor(Math.random() * 7);
+function displayFigures() {
+  resetFigures();
 
-const colorArray = ["B", "G", "O", "Y", "W", "P"];
-randomColor = Math.floor(Math.random() * colorArray.length);
+  let randomNumFig = Math.floor(Math.random() * 7) + 1;
+  let randomNumRow = Math.floor(Math.random() * 19);
+  let randomNumColumn = Math.floor(Math.random() * 7);
 
-const figures = {
-  1: [
-    ["*", "*"],
-    ["*", "*"],
-  ],
-  2: [
-    ["", "*", ""],
-    ["*", "*", "*"],
-  ],
-  3: [
-    ["*", "", ""],
-    ["*", "*", "*"],
-  ],
-  4: [
-    ["*", "*", ""],
-    ["", "*", "*"],
-  ],
-  5: [
-    ["", "*", "*"],
-    ["*", "*", ""],
-  ],
-  6: [
-    ["", "", "*"],
-    ["*", "*", "*"],
-  ],
-  7: [["*", "*", "*", "*"]],
-};
+  const colorArray = ["B", "G", "O", "Y", "W", "P"];
+  let randomColor = Math.floor(Math.random() * colorArray.length);
 
-const modelArray = [
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", "", "", "", ""],
-];
+  const figures = {
+    1: [
+      ["*", "*"],
+      ["*", "*"],
+    ],
+    2: [
+      ["", "*", ""],
+      ["*", "*", "*"],
+    ],
+    3: [
+      ["*", "", ""],
+      ["*", "*", "*"],
+    ],
+    4: [
+      ["*", "*", ""],
+      ["", "*", "*"],
+    ],
+    5: [
+      ["", "*", "*"],
+      ["*", "*", ""],
+    ],
+    6: [
+      ["", "", "*"],
+      ["*", "*", "*"],
+    ],
+    7: [["*", "*", "*", "*"]],
+  };
 
-for (let i = 0; i < figures[randomNumFig].length; i++) {
-  for (let j = 0; j < figures[randomNumFig][i].length; j++) {
-    if (figures[randomNumFig][i][j] === "*") {
-      modelArray[randomNumRow + i][randomNumCol + j] = colorArray[randomColor];
+  const modelArray = [
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+  ];
+
+  for (let i = 0; i < figures[randomNumFig].length; i++) {
+    for (let j = 0; j < figures[randomNumFig][i].length; j++) {
+      if (figures[randomNumFig][i][j] === "*") {
+        modelArray[randomNumRow + i][randomNumColumn + j] =
+          colorArray[randomColor];
+      }
+    }
+  }
+
+  changeBgMainArray(modelArray);
+}
+
+function changeBgMainArray(array) {
+  for (let i = 0; i < 20; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (array[i][j] === "Y") {
+        mainArrayDiv[i][j].style.backgroundColor = "yellow";
+      } else if (array[i][j] === "G") {
+        mainArrayDiv[i][j].style.backgroundColor = "green";
+      } else if (array[i][j] === "R") {
+        mainArrayDiv[i][j].style.backgroundColor = "red";
+      } else if (array[i][j] === "B") {
+        mainArrayDiv[i][j].style.backgroundColor = "blue";
+      } else if (array[i][j] === "P") {
+        mainArrayDiv[i][j].style.backgroundColor = "purple";
+      } else if (array[i][j] === "O") {
+        mainArrayDiv[i][j].style.backgroundColor = "orangered";
+      } else if (array[i][j] === "W") {
+        mainArrayDiv[i][j].style.backgroundColor = "white";
+      }
     }
   }
 }
 
-for (let i = 0; i < 20; i++) {
-  for (let j = 0; j < 10; j++) {
-    if (modelArray[i][j] === "Y") {
-      mainArrayDiv[i][j].style.backgroundColor = "yellow";
-    } else if (modelArray[i][j] === "G") {
-      mainArrayDiv[i][j].style.backgroundColor = "green";
-    } else if (modelArray[i][j] === "R") {
-      mainArrayDiv[i][j].style.backgroundColor = "red";
-    } else if (modelArray[i][j] === "B") {
-      mainArrayDiv[i][j].style.backgroundColor = "blue";
-    } else if (modelArray[i][j] === "P") {
-      mainArrayDiv[i][j].style.backgroundColor = "purple";
-    } else if (modelArray[i][j] === "O") {
-      mainArrayDiv[i][j].style.backgroundColor = "orangered";
-    } else if (modelArray[i][j] === "W") {
-      mainArrayDiv[i][j].style.backgroundColor = "white";
+function resetFigures() {
+  for (let i = 0; i < 20; i++) {
+    for (let j = 0; j < 10; j++) {
+      mainArrayDiv[i][j].style.backgroundColor = "transparent";
     }
   }
 }
