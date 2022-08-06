@@ -135,10 +135,7 @@ function createDivArray() {
   }
 }
 createDivArray();
-
 function displayFigures() {
-  resetFigures();
-
   let randomNumFig = Math.floor(Math.random() * 7) + 1;
   let randomNumRow = Math.floor(Math.random() * 19);
   let randomNumColumn = Math.floor(Math.random() * 7);
@@ -205,7 +202,6 @@ function displayFigures() {
       }
     }
   }
-
   changeBgMainArray(modelArray);
 }
 
@@ -226,15 +222,9 @@ function changeBgMainArray(array) {
         mainArrayDiv[i][j].style.backgroundColor = "orangered";
       } else if (array[i][j] === "W") {
         mainArrayDiv[i][j].style.backgroundColor = "white";
+      } else {
+        mainArrayDiv[i][j].style.backgroundColor = "transparent";
       }
-    }
-  }
-}
-
-function resetFigures() {
-  for (let i = 0; i < 20; i++) {
-    for (let j = 0; j < 10; j++) {
-      mainArrayDiv[i][j].style.backgroundColor = "transparent";
     }
   }
 }
