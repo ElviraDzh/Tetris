@@ -30,3 +30,38 @@ itemsLi.forEach(function (li) {
     list.insertBefore(li, list.firstChild);
   });
 });
+
+//Title animation
+
+function revealTitle(text) {
+  const strText = text.textContent;
+  const splitTextArr = strText.split("");
+  console.log(splitTextArr);
+  text.innerHTML = "";
+
+  for (let i = 0; i < splitTextArr.length; i++) {
+    text.innerHTML +=
+      "<span class='section-home-title'>" + splitTextArr[i] + "</span>";
+  }
+
+  timer = setInterval(onTick, 100);
+  text.classList.add("fade");
+}
+
+let char = 0;
+function onTick() {
+  const span = text.querySelectorAll("span")[char];
+  span.classList.add("fade");
+  char++;
+  if (char === splitTextArr.length) {
+    complete();
+    return;
+  }
+}
+function complete() {
+  clearInterval(timer);
+  // timer = null;
+}
+
+const text = document.querySelector("h2");
+revealTitle(text);

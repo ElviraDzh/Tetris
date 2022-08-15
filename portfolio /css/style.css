@@ -107,15 +107,57 @@ h2 {
   flex-direction: column;
   width: 52%;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
 }
-.section-home h2 {
+.title-holder {
+  position: relative;
   font-weight: 600;
   font-size: 4em;
   text-transform: uppercase;
   line-height: 0.9;
   color: #0e090d;
   margin-bottom: 20px;
+  overflow: hidden;
+}
+.title-holder::after {
+  align-self: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #f6efef;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: rollIn 1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards,
+    rollOut 1s 1.1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards;
+}
+
+@keyframes rollIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes rollOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+h2 .section-home-title {
+  opacity: 0;
+  transition: all 0.3s ease 1.7s;
+}
+h2 .section-home-title.fade {
+  opacity: 1;
 }
 .home-left-stick span {
   display: block;
