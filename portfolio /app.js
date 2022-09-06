@@ -1,3 +1,22 @@
+//              SIDEBAR BUTTON
+const toggleBtn = document.getElementById("closeBtn");
+const sidebar = document.getElementById("sidebar");
+
+toggleBtn.addEventListener("click", () => {
+  if (toggleBtn.innerText === "Close") {
+    sidebar.classList.add("closeActive");
+    toggleBtn.classList.remove("closeBtn");
+    toggleBtn.innerText = "Open";
+    toggleBtn.classList.add("openBtn");
+  } else {
+    sidebar.classList.remove("closeActive");
+    toggleBtn.classList.add("closeBtn");
+    toggleBtn.innerText = "Close";
+    toggleBtn.classList.remove("openBtn");
+  }
+});
+
+//               SERVICE section
 const list = document.querySelector(".service-list");
 const itemsLi = document.querySelectorAll(".service-list-item");
 const allDivsOfContent = document.querySelectorAll(".content-inner");
@@ -31,37 +50,58 @@ itemsLi.forEach(function (li) {
   });
 });
 
-//Title animation
+//                     TITLE ANIMATION
+
+const title = document.querySelector(".title-holder");
+const titles = document.querySelectorAll(".title-holder");
+const myResume = document.getElementById("myResume");
 
 function revealTitle(text) {
   const strText = text.textContent;
   const splitTextArr = strText.split("");
-  console.log(splitTextArr);
   text.innerHTML = "";
 
   for (let i = 0; i < splitTextArr.length; i++) {
-    text.innerHTML +=
-      "<span class='section-home-title'>" + splitTextArr[i] + "</span>";
+    text.innerHTML += "<span>" + splitTextArr[i] + "</span>";
   }
-
-  timer = setInterval(onTick, 100);
-  text.classList.add("fade");
+  const timer = setInterval(function () {
+    onTick(text, splitTextArr.length);
+  }, 50);
+  //timerList[text] = timer;
+  text["timer"] = timer;
+  text["index"] = 0;
 }
 
-let char = 0;
-function onTick() {
-  const span = text.querySelectorAll("span")[char];
+function onTick(text, length) {
+  let i = text["index"];
+
+  const span = text.querySelectorAll("span")[i];
+
   span.classList.add("fade");
-  char++;
-  if (char === splitTextArr.length) {
-    complete();
-    return;
+  text["index"]++;
+  if (text["index"] === length) {
+    complete(text);
   }
 }
-function complete() {
-  clearInterval(timer);
-  // timer = null;
+function complete(text) {
+  clearInterval(text["timer"]);
 }
 
-const text = document.querySelector("h2");
-revealTitle(text);
+titles.forEach((title) => {
+  revealTitle(title);
+  // getScrollPosition(title);
+});
+
+//                  SCROLL POSITION
+
+function getScrollPosition(title) {
+  window.addEventListener("scroll", () => {
+    const clientHeight = document.documentElement.clientHeight;
+    const topElementToTopViewport = title.getBoundingClientRect().top;
+
+    if (topElementToTopViewport < clientHeight * 0.8) {
+      revealTitle(title);
+    }
+  });
+}
+getScrollPosition(myResume);

@@ -32,6 +32,30 @@ img {
   z-index: 20;
   padding: 15vh 20px;
   height: 100%;
+  transition: all 0.5s ease-in-out;
+}
+.sidebar.closeActive {
+  transform: translateX(-100%);
+}
+
+.shifter .closeBtn,
+.shifter .openBtn {
+  position: absolute;
+  top: 5%;
+  background-color: #fff;
+  font-size: 0.8em;
+  border: none;
+  padding: 8px 12px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 15%);
+  cursor: pointer;
+}
+.shifter .closeBtn {
+  right: -8%;
+  border-radius: 40%;
+}
+.shifter .openBtn {
+  right: -15%;
+  border-radius: 0 40% 40% 0;
 }
 .shifter ul {
   position: absolute;
@@ -112,12 +136,14 @@ h2 {
 .title-holder {
   position: relative;
   font-weight: 600;
-  font-size: 4em;
+  font-size: 3em;
   text-transform: uppercase;
   line-height: 0.9;
   color: #0e090d;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   overflow: hidden;
+  /* transition: all 0.3s ease 2.7s; */
+  padding-block: 15px;
 }
 .title-holder::after {
   align-self: center;
@@ -152,12 +178,17 @@ h2 {
   }
 }
 
-h2 .section-home-title {
+h2.title-holder span {
+  display: inline-block;
   opacity: 0;
-  transition: all 0.3s ease 1.7s;
+  transition: all 0.3s cubic-bezier(0, 0, 0.1, 1.28) 1.5s;
+  /* transform: translateY(-50px); */
+  min-width: 1rem;
 }
-h2 .section-home-title.fade {
+
+h2.title-holder span.fade {
   opacity: 1;
+  /* transform: translateY(0px); */
 }
 .home-left-stick span {
   display: block;
@@ -188,7 +219,7 @@ h2 .section-home-title.fade {
 }
 .title-block .title-fixer {
   position: relative;
-  max-width: 720px;
+  max-width: 580px;
   margin: 0 auto;
   padding-bottom: 30px;
 }
@@ -401,78 +432,6 @@ h2 .section-home-title.fade {
   text-align: center;
 }
 
-/* .section-services .list {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-}
-.section-services .list-item {
-  width: 50%;
-  margin-bottom: 60px;
-}
-
-.section-services .list-item:nth-of-type(even) {
-  padding-left: 30px;
-}
-.section-services .list-item:nth-of-type(odd) {
-  padding-right: 30px;
-}
-
-.section-services .list-item a {
-  text-decoration: none;
-  display: inline-block;
-  color: #777;
-  padding: 40px;
-  border: 1px solid #f6efef;
-  border-radius: 0.5rem;
-  background-color: #fff;
-  height: 100%;
-  box-shadow: 0 3px 20px rgb(0 0 0 / 0.1);
-  border-radius: 8px;
-}
-.section-services .list-item a:hover {
-  box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
-}
-.list-item h4 {
-  margin: 0;
-  font-weight: 500;
-  font-size: 24px;
-  width: 100%;
-  margin-bottom: 17px;
-  color: #0e090d;
-  display: flex;
-  align-items: center;
-  gap: 2em;
-}
-.list-item h4 .counter {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  width: 60px;
-  height: 60px;
-  border-radius: 0.9em;
-  line-height: 60px;
-  text-align: center;
-} */
-/*
-.icon-html5,
-.icon-node-dot-js,
-.icon-bootstrap,
-.icon-react,
-.icon-javascript,
-.icon-css3 {
-  position: relative;
-  font-size: 50px;
-  top: 17%;
-  left: 16%;
-}
-.icon-javascript,
-.icon-bootstrap,
-.icon-node-dot-js {
-  left: 7%;
-}*/
 /*                                     RESUME                                  */
 .section-resume {
   padding: 100px 0 40px 0;
