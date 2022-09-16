@@ -25,7 +25,7 @@ const counter = document.getElementById("counter");
 
 itemsLi.forEach(function (li) {
   li.addEventListener("click", function () {
-    idContent = li.getAttribute("data-content");
+    const idContent = li.getAttribute("data-content");
     const contentDiv = document.getElementById(idContent);
     contentDiv.style.display = "block";
 
@@ -104,4 +104,29 @@ function getScrollPosition(title) {
     }
   });
 }
-getScrollPosition(myResume);
+//getScrollPosition(myResume);
+
+/*                   RESUME                            */
+
+const listItems = [...document.querySelectorAll(".resume-list-item")];
+const tooltips = document.querySelectorAll(".resume-tooltip");
+console.log(listItems);
+
+listItems.forEach((listItem) => {
+  listItem.addEventListener("mouseover", () => {
+    tooltips.forEach((tooltip) => {
+      const idTooltip = tooltip.getAttribute("data");
+      const idListItem = listItem.getAttribute("data");
+      console.log(idListItem);
+      if (idTooltip === idListItem) tooltip.classList.add("active");
+    });
+  });
+});
+
+listItems.forEach((listItem) => {
+  listItem.addEventListener("mouseout", () => {
+    tooltips.forEach((tooltip) => {
+      if (tooltip.data === listItem.data) tooltip.classList.remove("active");
+    });
+  });
+});

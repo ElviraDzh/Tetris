@@ -439,7 +439,8 @@ h2.title-holder span.fade {
 .resume-list ul {
   padding: 0;
 }
-.resume-list li {
+.resume-list .resume-list-item {
+  position: relative;
   list-style: none;
   padding: 1.5rem 1rem;
   border-bottom: 1px solid #e5e5e5;
@@ -460,7 +461,35 @@ h2.title-holder span.fade {
   background-color: #f6efef;
   cursor: pointer;
 }
-
+.resume-list .resume-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  max-width: 600px;
+  background-color: #fff;
+  border: 1px solid #f6efef;
+  border-radius: 5px;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+  padding: 34px 30px;
+  transition: all 0.7s ease 0.5s;
+  transform: translate(-50%, 30px);
+  opacity: 0;
+}
+.resume-list .resume-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 45%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 13px 11px 0 11px;
+  border-color: #fff transparent transparent transparent;
+}
+.resume-tooltip.active {
+  opacity: 1;
+  transform: translate(-50%, 0px);
+}
 /*                        PORTFOLIO                              */
 .section-portfolio {
   padding: 150px 0 55px;
