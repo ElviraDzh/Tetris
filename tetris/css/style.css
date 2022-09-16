@@ -206,7 +206,7 @@ thead tr {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #0096c7;
 }
 
 /* Handle */
@@ -215,9 +215,9 @@ thead tr {
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #457b9d, #0096c7);
-}
+} */
 .sidebar-links-bottom {
   display: flex;
   flex-wrap: wrap;
