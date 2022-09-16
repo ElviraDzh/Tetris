@@ -108,25 +108,25 @@ function getScrollPosition(title) {
 
 /*                   RESUME                            */
 
-const listItems = [...document.querySelectorAll(".resume-list-item")];
+const listItems = document.querySelectorAll(".resume-list-item");
 const tooltips = document.querySelectorAll(".resume-tooltip");
-console.log(listItems);
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseover", () => {
-    tooltips.forEach((tooltip) => {
-      const idTooltip = tooltip.getAttribute("data");
-      const idListItem = listItem.getAttribute("data");
-      console.log(idListItem);
-      if (idTooltip === idListItem) tooltip.classList.add("active");
-    });
+    addOrRemoveClassList(listItem);
   });
 });
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseout", () => {
-    tooltips.forEach((tooltip) => {
-      if (tooltip.data === listItem.data) tooltip.classList.remove("active");
-    });
+    addOrRemoveClassList(listItem);
   });
 });
+
+function addOrRemoveClassList(listItem) {
+  tooltips.forEach((tooltip) => {
+    const idTooltip = tooltip.getAttribute("data");
+    const idListItem = listItem.getAttribute("data");
+    if (idTooltip === idListItem) tooltip.classList.toggle("active");
+  });
+}
