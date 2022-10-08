@@ -53,7 +53,8 @@ itemsLi.forEach(function (li) {
 //                     TITLE ANIMATION
 
 const title = document.querySelector(".title-holder");
-const titles = document.querySelectorAll(".title-holder");
+// const titles = document.querySelectorAll(".title-holder");
+const titAbout = document.querySelector("#aboutH1");
 const myResume = document.getElementById("myResume");
 
 function revealTitle(text) {
@@ -76,7 +77,10 @@ function onTick(text, length) {
   let i = text["index"];
 
   const span = text.querySelectorAll("span")[i];
-
+  console.log(span);
+  if (span === undefined) {
+    return;
+  }
   span.classList.add("fade");
   text["index"]++;
   if (text["index"] === length) {
@@ -87,16 +91,17 @@ function complete(text) {
   clearInterval(text["timer"]);
 }
 
-titles.forEach((title) => {
-  revealTitle(title);
-  // getScrollPosition(title);
-});
+// titles.forEach((title) => {
+//   // revealTitle(title);
+//   getScrollPosition(title);
+// });
 
 //                  SCROLL POSITION
 
 function getScrollPosition(title) {
   window.addEventListener("scroll", () => {
     const clientHeight = document.documentElement.clientHeight;
+    console.log("clientHeight: " + clientHeight);
     const topElementToTopViewport = title.getBoundingClientRect().top;
 
     if (topElementToTopViewport < clientHeight * 0.8) {
@@ -104,7 +109,7 @@ function getScrollPosition(title) {
     }
   });
 }
-//getScrollPosition(myResume);
+getScrollPosition(titAbout);
 
 /*                   RESUME                            */
 
@@ -113,20 +118,20 @@ const tooltips = document.querySelectorAll(".resume-tooltip");
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseover", () => {
-    addOrRemoveClassList(listItem);
+    addOrRemoveClassList(listItem, "0.4");
+    listItem.style.opacity = "1";
   });
 });
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseout", () => {
-    addOrRemoveClassList(listItem);
+    addOrRemoveClassList(listItem, "1");
   });
 });
 
-function addOrRemoveClassList(listItem) {
-  tooltips.forEach((tooltip) => {
-    const idTooltip = tooltip.getAttribute("data");
-    const idListItem = listItem.getAttribute("data");
-    if (idTooltip === idListItem) tooltip.classList.toggle("active");
+function addOrRemoveClassList(listItem, opacity) {
+  listItem.lastElementChild.classList.toggle("active");
+  listItems.forEach((item) => {
+    item.style.opacity = opacity;
   });
 }
