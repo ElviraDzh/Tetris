@@ -119,33 +119,19 @@ console.log(listResume);
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseover", () => {
-    setTimeout(() => {
-      //appearTooltip(listItem, "0.4");
-      //listItem.querySelector(".resume-tooltip").classList.add("show");
-      console.log(listItem.lastElementChild);
-      listItems.forEach((item) => {
-        item.style.opacity = "0.4";
-        item.querySelector(".resume-tooltip").style.opacity = "0";
-      });
-      listItem.style.opacity = "1";
-      listItem.lastElementChild.classList.add("show");
-    }, 1000);
+    appearTooltip(listItem, "0.4");
+    listItem.style.opacity = "1";
   });
 });
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseout", () => {
-    listItem.lastElementChild.classList.remove("show");
-    //appearTooltip(listItem, "1");
-    listItems.forEach((item) => {
-      item.style.opacity = "1";
-      item.lastElementChild.style.opacity = "0";
-    });
+    appearTooltip(listItem, "1");
   });
 });
 
 function appearTooltip(listItem, opacity) {
-  listItem.lastElementChild.classList.toggle("active");
+  listItem.lastElementChild.classList.toggle("show");
   listItems.forEach((item) => {
     item.style.opacity = opacity;
   });
