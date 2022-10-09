@@ -156,8 +156,8 @@ h2 {
   background-color: #f6efef;
   transform-origin: left;
   transform: scaleX(0);
-  animation: rollIn 1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards,
-    rollOut 1s 1.1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards;
+  /* animation: rollIn 1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards,
+    rollOut 1s 1.1s cubic-bezier(0.25, 0.1, 0.39, 0.62) forwards;*/
 }
 
 @keyframes rollIn {
@@ -436,7 +436,7 @@ h2.title-holder span.fade {
 .section-resume {
   padding: 100px 0 40px 0;
 }
-.resume-list ul {
+.resume-list {
   padding: 0;
 }
 .resume-list .resume-list-item {
@@ -457,7 +457,7 @@ h2.title-holder span.fade {
   width: 30%;
 }
 
-.resume-list ul li:hover {
+.resume-list li:hover {
   background-color: #f6efef;
   cursor: pointer;
 }
@@ -471,9 +471,10 @@ h2.title-holder span.fade {
   border-radius: 5px;
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
   padding: 34px 30px;
-  transition: all 0.7s ease 0.5s;
+  transition: transform 0.3s ease;
   transform: translate(-50%, 30px);
   opacity: 0;
+  pointer-events: none;
 }
 .resume-list .resume-tooltip::after {
   content: "";
@@ -486,7 +487,7 @@ h2.title-holder span.fade {
   border-width: 13px 11px 0 11px;
   border-color: #fff transparent transparent transparent;
 }
-.resume-tooltip.active {
+.resume-tooltip.show {
   opacity: 1;
   transform: translate(-50%, 0px);
 }

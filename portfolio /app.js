@@ -114,22 +114,37 @@ getScrollPosition(titAbout);
 /*                   RESUME                            */
 
 const listItems = document.querySelectorAll(".resume-list-item");
-const tooltips = document.querySelectorAll(".resume-tooltip");
+const listResume = document.querySelector(".resume-list");
+console.log(listResume);
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseover", () => {
-    addOrRemoveClassList(listItem, "0.4");
-    listItem.style.opacity = "1";
+    setTimeout(() => {
+      //appearTooltip(listItem, "0.4");
+      //listItem.querySelector(".resume-tooltip").classList.add("show");
+      console.log(listItem.lastElementChild);
+      listItems.forEach((item) => {
+        item.style.opacity = "0.4";
+        item.querySelector(".resume-tooltip").style.opacity = "0";
+      });
+      listItem.style.opacity = "1";
+      listItem.lastElementChild.classList.add("show");
+    }, 1000);
   });
 });
 
 listItems.forEach((listItem) => {
   listItem.addEventListener("mouseout", () => {
-    addOrRemoveClassList(listItem, "1");
+    listItem.lastElementChild.classList.remove("show");
+    //appearTooltip(listItem, "1");
+    listItems.forEach((item) => {
+      item.style.opacity = "1";
+      item.lastElementChild.style.opacity = "0";
+    });
   });
 });
 
-function addOrRemoveClassList(listItem, opacity) {
+function appearTooltip(listItem, opacity) {
   listItem.lastElementChild.classList.toggle("active");
   listItems.forEach((item) => {
     item.style.opacity = opacity;
