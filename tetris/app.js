@@ -75,8 +75,8 @@ const shapes = {
     ],
   },
   I: {
-    0: [["*"], ["*"], ["*"], ["*"]],
-    1: [["*", "*", "*", "*"]],
+    0: [["*"], ["*"], ["*"], ["*"]], // 0: length: 1;
+    1: [["*", "*", "*", "*"]], // 1: length: 4;
   },
   square: {
     0: [
@@ -86,7 +86,7 @@ const shapes = {
   },
   Z: {
     0: [
-      ["*", "*"],
+      ["*", "*", ""],
       ["", "*", "*"],
     ],
     1: [
@@ -98,7 +98,7 @@ const shapes = {
   oppositeZ: {
     0: [
       ["", "*", "*"],
-      ["*", "*"],
+      ["*", "*", ""],
     ],
     1: [
       ["*", ""],
@@ -216,7 +216,7 @@ let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
-  changeShapePosition(currentPosition, null, null);
+  moveShape(currentPosition);
   changeBgMainArray();
 }
 
@@ -224,13 +224,10 @@ document.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "ArrowUp":
       //up
-      currentPosition++;
-      if (currentPosition > Object.keys(randomShape).length - 1) {
-        currentPosition = 0;
-      }
       cleanModelArray();
-      changeShapePosition(currentPosition);
+      rotateShape();
       changeBgMainArray();
+
       break;
 
     case "ArrowLeft":
@@ -239,27 +236,32 @@ document.addEventListener("keydown", (e) => {
       if (currentColumn > 0) {
         currentColumn--;
         cleanModelArray();
-        changeShapePosition(currentPosition);
+        moveShape(currentPosition);
         changeBgMainArray();
       }
       break;
 
     case "ArrowRight":
       //right
-      p(currentColumn, "right");
-      if (currentColumn < 10) {
+      p("arrowRight:");
+      p(currentColumn, "currentColumn");
+      const len = randomShape[currentPosition][0].length;
+      p(len, "len");
+      if (len + currentColumn < 10) {
         currentColumn++;
         cleanModelArray();
-        changeShapePosition(currentPosition);
+        moveShape(currentPosition);
         changeBgMainArray();
       }
       break;
     case "ArrowDown":
       //down;
-      currentRow++;
-      cleanModelArray();
-      changeShapePosition(currentPosition);
-      changeBgMainArray();
+      if (currentRow < 20) {
+        currentRow++;
+        cleanModelArray();
+        moveShape(currentPosition);
+        changeBgMainArray();
+      }
       break;
   }
 });
@@ -278,8 +280,8 @@ let randomShapeIndex = Math.floor(
 );
 let shapeKey = shapeKeys[randomShapeIndex];
 p(shapeKey, "shapeKey");
-//const randomShape = shapes[shapeKey];
-const randomShape = shapes["I"];
+const randomShape = shapes[shapeKey];
+//const randomShape = shapes["I"];
 p(Object.keys(randomShape).length);
 
 // let randomNumRow = Math.floor(Math.random() * 19);
@@ -290,19 +292,59 @@ let randomNumColumn = 4;
 const colorArray = ["B", "G", "O", "Y", "W", "P"];
 let randomColor = Math.floor(Math.random() * colorArray.length);
 
-function changeShapePosition(position) {
-  p(position, "position");
-  p(randomShape[position][0].length, "length");
-  p(currentColumn, "currentColumn");
-  if (randomShape[position][0].length + currentColumn > 10) {
-    currentColumn = currentColumn - randomShape[position][0].length + 1;
-  }
-  for (let i = 0; i < randomShape[position].length; i++)
+function moveShape(position) {
+  // Z: {
+  //   0: [
+  //     ["*", "*", " "],
+  //     [" ", "*", "*"],
+  //   ],
+  //   1: [
+  //     ["", "*"],
+  //     ["*", "*"],
+  //     ["*", ""],
+  //   ],
+  // },
+  for (
+    let i = 0;
+    i < randomShape[position].length; //2
+    i++ // shapeRow
+  )
     for (let j = 0; j < randomShape[position][i].length; j++) {
+      //3
+      // shapeColumn
       if (randomShape[position][i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
+}
+
+function rotateShape() {
+  p("rotateShape: ");
+  currentPosition++;
+  if (currentPosition > Object.keys(randomShape).length - 1) {
+    currentPosition = 0;
+  }
+  const len = randomShape[currentPosition][0].length;
+  p(len, "len");
+  p(currentColumn, "currentColumn");
+  if (currentColumn + len > 9) {
+    currentColumn = 10 - len;
+  }
+  const twoDimArr = randomShape[currentPosition];
+
+  p(currentColumn, "currentColumn");
+  for (
+    let i = 0;
+    i < twoDimArr.length;
+    i++ //row
+  )
+    for (let j = 0; j < twoDimArr[i].length; j++) {
+      // column
+      if (twoDimArr[i][j] === "*") {
+        modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
+      }
+    }
+  p(modelArray);
 }
 
 function changeBgMainArray() {
