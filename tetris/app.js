@@ -9,7 +9,7 @@ function p(v, s) {
 let timerInterval = null;
 let paused = false;
 const mainArrayDiv = [];
-
+//let len;
 const modelArray = [
   ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "", ""],
@@ -131,8 +131,8 @@ const shapes = {
 const createDiv = () => {
   const newDiv = document.createElement("div");
   newDiv.style.cssText = `
-  width:39px;
-  height:39px;
+  width:35px;
+  height:35px;
   border-bottom:1px solid grey;
   border-right:1px solid grey;`;
   const playArea = document.getElementById("playArea");
@@ -153,71 +153,121 @@ function createDivArray() {
 }
 createDivArray();
 
-// function play() {
-//   makeRect();
-//   startInterval();
-// }
-
-// function pause() {
-//   paused = !paused;
-// }
-
-// function startInterval() {
-//   if (timerInterval === null) {
-//     timerInterval = setInterval(goDown, 1000);
-//   }
-// }
-
-// function moveShape() {
-//   let transformAttr = "translate(" + currentX + "," + currentY + ")";
-//   rect.setAttribute("transform", transformAttr);
-// }
-
-// function goDown() {
-//   if (paused) return;
-
-//   if (currentY <= 720) {
-//     currentY += 40;
-//     moveShape();
-//     console.log("down:" + currentY);
-//   } else if (currentY === 760) {
-//     currentX = 0;
-//     currentY = 0;
-//     makeRect();
-//   }
-// }
-
-// document.addEventListener("keydown", (e) => {
-//   switch (e.code) {
-//     case "ArrowLeft":
-//       //left
-//       if (currentX >= -120) {
-//         currentX -= 40;
-//         moveShape();
-//         console.log("left:" + currentX);
-//       }
-//       break;
-//     case "ArrowRight":
-//       //right
-//       if (currentX <= 160) {
-//         currentX += 40;
-//         moveShape();
-//         console.log("right:" + currentX);
-//       }
-//       break;
-//     case "ArrowDown":
-//       //down
-//       goDown();
-//       break;
-//   }
-// });
 let currentRow = 0;
 let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
-  moveShape(currentPosition);
-  changeBgMainArray();
+  startInterval();
+}
+
+function pause() {
+  paused = !paused;
+}
+
+function pa(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let s = "";
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i][j] === "" || arr[i][j] === " ") {
+        s += "_ ";
+      } else {
+        s += arr[i][j] + " ";
+      }
+    }
+    console.log(s);
+  }
+}
+
+function canMoveDown() {
+  const twoDimLength = randomShape[currentPosition].length;
+  p("canMoveDown:");
+  p("=1=");
+  pa(modelArray);
+  p(twoDimLength, "twoDimLength");
+  p(currentRow, "currentRow");
+  p("=2=");
+  if (parseInt(twoDimLength) + parseInt(currentRow) >= 21) {
+    return false;
+  }
+  p("=3=");
+  for (let i = 0; i < modelArray.length - 1; i++) {
+    for (let j = 0; j < modelArray[i].length; j++) {
+      if (
+        modelArray[i][j] !== "" &&
+        modelArray[i][j] !== "-" &&
+        modelArray[i + 1][j] === "-"
+      ) {
+        return false;
+      }
+    }
+  }
+  p("=4=");
+  return true;
+}
+
+function goDown() {
+  if (paused) return;
+
+  const twoDimLength = randomShape[currentPosition].length;
+  p(currentRow, "currentRow");
+  p(twoDimLength, "TwoDimLength");
+  // if (twoDimLength + currentRow < 21) {
+  if (canMoveDown()) {
+    // for (
+    //   let i = currentRow + twoDimLength;
+    //   i <= currentRow + twoDimLength;
+    //   i++
+    // ) {
+    //   for (let j = currentColumn; j < currentColumn + 4; j++) {
+    //     if (modelArray[i]?.[j] === "-") {
+    //       p("save position");
+    //       savePosition();
+
+    //       //clearInterval(timerInterval);
+    //     } else {
+    //       cleanModelArray();
+    //       moveShape(currentPosition);
+    //       changeBgMainArray();
+    //     }
+    //   }
+    // }
+
+    cleanModelArray();
+    moveShape(currentPosition);
+    changeBgMainArray();
+    currentRow++;
+  } else {
+    // else if (twoDimLength + currentRow === 21) {
+    p("reached bottom");
+    savePosition();
+    nextShape();
+    currentColumn = 4;
+    currentRow = 0;
+    currentPosition = 0;
+    moveShape(currentPosition);
+    changeBgMainArray();
+  }
+}
+// function checkNextRow() {
+//   const twoDimLength = randomShape[currentPosition].length;
+//   p(currentColumn, "currentColumn");
+//   p(twoDimLength, "length");
+//   for (let i = currentRow + twoDimLength; i < 3; i++) {
+//     p("it works");
+//     for (let j = currentColumn; j < 4; j++) {
+//       p(modelArray[i][j]);
+//       if (modelArray[i][j] === "-") {
+//         savePosition();
+//       }
+//     }
+//   }
+// }
+
+function startInterval() {
+  if (timerInterval === null) {
+    timerInterval = setInterval(goDown, 1000);
+  }
 }
 
 document.addEventListener("keydown", (e) => {
@@ -243,10 +293,8 @@ document.addEventListener("keydown", (e) => {
 
     case "ArrowRight":
       //right
-      p("arrowRight:");
-      p(currentColumn, "currentColumn");
-      const len = randomShape[currentPosition][0].length;
-      p(len, "len");
+      len = randomShape[currentPosition][0].length;
+      p(len, "Length");
       if (len + currentColumn < 10) {
         currentColumn++;
         cleanModelArray();
@@ -256,54 +304,58 @@ document.addEventListener("keydown", (e) => {
       break;
     case "ArrowDown":
       //down;
-      if (currentRow < 20) {
-        currentRow++;
-        cleanModelArray();
-        moveShape(currentPosition);
-        changeBgMainArray();
-      }
+      goDown();
       break;
   }
 });
 
-function cleanModelArray() {
+function savePosition() {
   for (let i = 0; i < 20; i++) {
     for (let j = 0; j < 10; j++) {
-      modelArray[i][j] = "";
+      if (
+        modelArray[i][j] === "B" ||
+        modelArray[i][j] === "G" ||
+        modelArray[i][j] === "O" ||
+        modelArray[i][j] === "Y" ||
+        modelArray[i][j] === "W" ||
+        modelArray[i][j] === "P"
+      ) {
+        modelArray[i][j] = "-";
+      }
     }
   }
 }
-let shapeKeys = [...Object.keys(shapes)];
-p(shapeKeys, "shapeKeys");
-let randomShapeIndex = Math.floor(
-  Math.random() * [...Object.keys(shapes)].length
-);
-let shapeKey = shapeKeys[randomShapeIndex];
-p(shapeKey, "shapeKey");
-const randomShape = shapes[shapeKey];
-//const randomShape = shapes["I"];
-p(Object.keys(randomShape).length);
 
-// let randomNumRow = Math.floor(Math.random() * 19);
-let randomNumRow = 0;
-//let randomNumColumn = Math.floor(Math.random() * 9);
-let randomNumColumn = 4;
+function cleanModelArray() {
+  for (let i = 0; i < 20; i++) {
+    for (let j = 0; j < 10; j++) {
+      if (modelArray[i][j] !== "-") {
+        modelArray[i][j] = "";
+      }
+    }
+  }
+}
+
+let randomColor;
+let randomShape;
 
 const colorArray = ["B", "G", "O", "Y", "W", "P"];
-let randomColor = Math.floor(Math.random() * colorArray.length);
+let shapeKeys = [...Object.keys(shapes)];
+let randomNumRow = 0;
+let randomNumColumn = 4;
+
+function nextShape() {
+  randomColor = Math.floor(Math.random() * colorArray.length);
+
+  let randomShapeIndex = Math.floor(
+    Math.random() * [...Object.keys(shapes)].length
+  );
+  let shapeKey = shapeKeys[randomShapeIndex];
+  randomShape = shapes[shapeKey];
+}
+nextShape();
 
 function moveShape(position) {
-  // Z: {
-  //   0: [
-  //     ["*", "*", " "],
-  //     [" ", "*", "*"],
-  //   ],
-  //   1: [
-  //     ["", "*"],
-  //     ["*", "*"],
-  //     ["*", ""],
-  //   ],
-  // },
   for (
     let i = 0;
     i < randomShape[position].length; //2
@@ -316,6 +368,7 @@ function moveShape(position) {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
+  //return randomShape[position][i].length;
 }
 
 function rotateShape() {
@@ -324,14 +377,16 @@ function rotateShape() {
   if (currentPosition > Object.keys(randomShape).length - 1) {
     currentPosition = 0;
   }
-  const len = randomShape[currentPosition][0].length;
+  len = randomShape[currentPosition][0].length;
   p(len, "len");
   p(currentColumn, "currentColumn");
   if (currentColumn + len > 9) {
     currentColumn = 10 - len;
   }
   const twoDimArr = randomShape[currentPosition];
-
+  if (currentRow + twoDimArr.length > 16) {
+    currentRow = 20 - twoDimArr.length;
+  }
   p(currentColumn, "currentColumn");
   for (
     let i = 0;
@@ -344,7 +399,6 @@ function rotateShape() {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
-  p(modelArray);
 }
 
 function changeBgMainArray() {
@@ -371,6 +425,9 @@ function changeBgMainArray() {
           break;
         case "W":
           mainArrayDiv[i][j].style.backgroundColor = "white";
+          break;
+        case "-":
+          mainArrayDiv[i][j].style.backgroundColor = "pink";
           break;
         default:
           mainArrayDiv[i][j].style.backgroundColor = "transparent";
