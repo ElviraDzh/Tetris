@@ -9,7 +9,17 @@ function p(v, s) {
 let timerInterval = null;
 let paused = false;
 const mainArrayDiv = [];
-//let len;
+const nextBlockArray = [];
+let nextShapeMainBlock;
+
+let randomColor;
+let randomShape;
+
+const colorArray = ["B", "G", "O", "Y", "W", "P"];
+
+let randomNumRow = 0;
+let randomNumColumn = 4;
+
 const modelArray = [
   ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "", ""],
@@ -127,16 +137,17 @@ const shapes = {
     ],
   },
 };
+let shapeKeys = [...Object.keys(shapes)];
 
-const createDiv = () => {
+const createDiv = (id, size) => {
   const newDiv = document.createElement("div");
   newDiv.style.cssText = `
-  width:35px;
-  height:35px;
+  width: ${size};
+  height: ${size};
   border-bottom:1px solid grey;
   border-right:1px solid grey;`;
-  const playArea = document.getElementById("playArea");
-  playArea.append(newDiv);
+  const area = document.getElementById(`${id}`);
+  area.append(newDiv);
 
   return newDiv;
 };
@@ -145,19 +156,64 @@ function createDivArray() {
   for (let i = 0; i < 20; i++) {
     const array = [];
     for (let j = 0; j < 10; j++) {
-      const div = createDiv();
+      const div = createDiv("playArea", "32px");
       array[j] = div;
     }
     mainArrayDiv.push(array);
   }
 }
+
 createDivArray();
+
+////////////////////// Next block/////////////////////////////////////////
+
+function createArrayNextShape() {
+  for (let i = 0; i < 4; i++) {
+    const array = [];
+    for (let j = 0; j < 5; j++) {
+      const div = createDiv("nextFigure", "20px");
+      array[j] = div;
+    }
+    nextBlockArray.push(array);
+  }
+}
+p(nextBlockArray);
+createArrayNextShape();
+
+const modelArrayNextShape = [
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+];
+
+function displayInNextBlock() {
+  cleanArray(modelArrayNextShape);
+  p(randomShape);
+  for (
+    let i = 0;
+    i < randomShape[0].length; //2
+    i++ // shapeRow
+  )
+    for (let j = 0; j < randomShape[0][i].length; j++) {
+      //3
+      // shapeColumn
+      if (randomShape[0][i][j] === "*") {
+        modelArrayNextShape[0 + i][2 + j] = colorArray[randomColor];
+      }
+    }
+  changeBgMainArray(modelArrayNextShape, nextBlockArray);
+  return nextShape();
+}
+
+//////////////////////////////////////////////////////////////////////////////
 
 let currentRow = 0;
 let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
+  nextShapeMainBlock = displayInNextBlock();
   startInterval();
 }
 
@@ -181,16 +237,9 @@ function pa(arr) {
 
 function canMoveDown() {
   const twoDimLength = randomShape[currentPosition].length;
-  p("canMoveDown:");
-  p("=1=");
-  pa(modelArray);
-  p(twoDimLength, "twoDimLength");
-  p(currentRow, "currentRow");
-  p("=2=");
   if (parseInt(twoDimLength) + parseInt(currentRow) >= 21) {
     return false;
   }
-  p("=3=");
   for (let i = 0; i < modelArray.length - 1; i++) {
     for (let j = 0; j < modelArray[i].length; j++) {
       if (
@@ -202,67 +251,46 @@ function canMoveDown() {
       }
     }
   }
-  p("=4=");
   return true;
 }
 
 function goDown() {
   if (paused) return;
-
-  const twoDimLength = randomShape[currentPosition].length;
-  p(currentRow, "currentRow");
-  p(twoDimLength, "TwoDimLength");
-  // if (twoDimLength + currentRow < 21) {
+  pa(modelArray);
   if (canMoveDown()) {
-    // for (
-    //   let i = currentRow + twoDimLength;
-    //   i <= currentRow + twoDimLength;
-    //   i++
-    // ) {
-    //   for (let j = currentColumn; j < currentColumn + 4; j++) {
-    //     if (modelArray[i]?.[j] === "-") {
-    //       p("save position");
-    //       savePosition();
-
-    //       //clearInterval(timerInterval);
-    //     } else {
-    //       cleanModelArray();
-    //       moveShape(currentPosition);
-    //       changeBgMainArray();
-    //     }
-    //   }
-    // }
-
-    cleanModelArray();
-    moveShape(currentPosition);
-    changeBgMainArray();
+    cleanArray(modelArray);
+    moveShape(currentPosition, randomShape);
+    changeBgMainArray(modelArray, mainArrayDiv);
     currentRow++;
   } else {
-    // else if (twoDimLength + currentRow === 21) {
-    p("reached bottom");
     savePosition();
-    nextShape();
+    for (let i = 0; i < modelArray.length; i++) {
+      let count = 0;
+      for (let j = 0; j < modelArray[i].length; j++) {
+        p(modelArray[i][j]);
+        if (modelArray[i][j] === "-") {
+          count++;
+        }
+      }
+      p(count, "count");
+      if (count === 10) {
+        p(i, "remove Row");
+        modelArray.splice(i, 1);
+        modelArray.unshift(["", "", "", "", "", "", "", "", "", ""]);
+      }
+    }
+
+    p("reached bottom");
+
+    nextShapeMainBlock = displayInNextBlock();
+    p(nextShapeMainBlock);
     currentColumn = 4;
     currentRow = 0;
     currentPosition = 0;
-    moveShape(currentPosition);
-    changeBgMainArray();
+    moveShape(currentPosition, nextShapeMainBlock);
+    changeBgMainArray(modelArray, mainArrayDiv);
   }
 }
-// function checkNextRow() {
-//   const twoDimLength = randomShape[currentPosition].length;
-//   p(currentColumn, "currentColumn");
-//   p(twoDimLength, "length");
-//   for (let i = currentRow + twoDimLength; i < 3; i++) {
-//     p("it works");
-//     for (let j = currentColumn; j < 4; j++) {
-//       p(modelArray[i][j]);
-//       if (modelArray[i][j] === "-") {
-//         savePosition();
-//       }
-//     }
-//   }
-// }
 
 function startInterval() {
   if (timerInterval === null) {
@@ -274,9 +302,9 @@ document.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "ArrowUp":
       //up
-      cleanModelArray();
+      cleanArray(modelArray);
       rotateShape();
-      changeBgMainArray();
+      changeBgMainArray(modelArray, mainArrayDiv);
 
       break;
 
@@ -285,9 +313,9 @@ document.addEventListener("keydown", (e) => {
       p(currentColumn);
       if (currentColumn > 0) {
         currentColumn--;
-        cleanModelArray();
-        moveShape(currentPosition);
-        changeBgMainArray();
+        cleanArray(modelArray);
+        moveShape(currentPosition, randomShape);
+        changeBgMainArray(modelArray, mainArrayDiv);
       }
       break;
 
@@ -297,9 +325,9 @@ document.addEventListener("keydown", (e) => {
       p(len, "Length");
       if (len + currentColumn < 10) {
         currentColumn++;
-        cleanModelArray();
-        moveShape(currentPosition);
-        changeBgMainArray();
+        cleanArray(modelArray);
+        moveShape(currentPosition, randomShape);
+        changeBgMainArray(modelArray, mainArrayDiv);
       }
       break;
     case "ArrowDown":
@@ -326,23 +354,15 @@ function savePosition() {
   }
 }
 
-function cleanModelArray() {
-  for (let i = 0; i < 20; i++) {
-    for (let j = 0; j < 10; j++) {
-      if (modelArray[i][j] !== "-") {
-        modelArray[i][j] = "";
+function cleanArray(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i][j] !== "-") {
+        arr[i][j] = "";
       }
     }
   }
 }
-
-let randomColor;
-let randomShape;
-
-const colorArray = ["B", "G", "O", "Y", "W", "P"];
-let shapeKeys = [...Object.keys(shapes)];
-let randomNumRow = 0;
-let randomNumColumn = 4;
 
 function nextShape() {
   randomColor = Math.floor(Math.random() * colorArray.length);
@@ -352,10 +372,11 @@ function nextShape() {
   );
   let shapeKey = shapeKeys[randomShapeIndex];
   randomShape = shapes[shapeKey];
+  return randomShape;
 }
 nextShape();
 
-function moveShape(position) {
+function moveShape(position, randomShape) {
   for (
     let i = 0;
     i < randomShape[position].length; //2
@@ -368,7 +389,6 @@ function moveShape(position) {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
-  //return randomShape[position][i].length;
 }
 
 function rotateShape() {
@@ -401,36 +421,36 @@ function rotateShape() {
     }
 }
 
-function changeBgMainArray() {
-  for (let i = 0; i < modelArray.length; i++) {
-    for (let j = 0; j < modelArray[i].length; j++) {
-      switch (modelArray[i][j]) {
+function changeBgMainArray(modelArr, mainArr) {
+  for (let i = 0; i < modelArr.length; i++) {
+    for (let j = 0; j < modelArr[i].length; j++) {
+      switch (modelArr[i][j]) {
         case "Y":
-          mainArrayDiv[i][j].style.backgroundColor = "yellow";
+          mainArr[i][j].style.backgroundColor = "yellow";
           break;
         case "G":
-          mainArrayDiv[i][j].style.backgroundColor = "green";
+          mainArr[i][j].style.backgroundColor = "green";
           break;
         case "R":
-          mainArrayDiv[i][j].style.backgroundColor = "red";
+          mainArr[i][j].style.backgroundColor = "red";
           break;
         case "B":
-          mainArrayDiv[i][j].style.backgroundColor = "blue";
+          mainArr[i][j].style.backgroundColor = "blue";
           break;
         case "P":
-          mainArrayDiv[i][j].style.backgroundColor = "purple";
+          mainArr[i][j].style.backgroundColor = "purple";
           break;
         case "O":
-          mainArrayDiv[i][j].style.backgroundColor = "orangered";
+          mainArr[i][j].style.backgroundColor = "orangered";
           break;
         case "W":
-          mainArrayDiv[i][j].style.backgroundColor = "white";
+          mainArr[i][j].style.backgroundColor = "white";
           break;
         case "-":
-          mainArrayDiv[i][j].style.backgroundColor = "pink";
+          mainArr[i][j].style.backgroundColor = "pink";
           break;
         default:
-          mainArrayDiv[i][j].style.backgroundColor = "transparent";
+          mainArr[i][j].style.backgroundColor = "transparent";
       }
     }
   }
