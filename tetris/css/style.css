@@ -49,7 +49,7 @@ body {
   color: lightblue;
 }
 .next-block {
-  width: 182px;
+  width: 174px;
   height: 100px;
   margin-left: 5px;
   vertical-align: top;
@@ -60,11 +60,11 @@ body {
   padding: 5px;
 }
 #nextFigure {
-  width: 108px;
-  height: 85px;
+  width: 98px;
+  height: 83px;
   background-color: #403d39;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border: 3px solid orangered;
 }
 

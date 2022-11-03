@@ -14,6 +14,8 @@ let nextShapeMainBlock;
 
 let randomColor;
 let randomShape;
+let nextRandomShape = null;
+let nextRandomColor;
 
 const colorArray = ["B", "G", "O", "Y", "W", "P"];
 
@@ -137,8 +139,8 @@ const shapes = {
     ],
   },
 };
-let shapeKeys = [...Object.keys(shapes)];
-
+let shapeKeys = Object.keys(shapes); //["L", "oppositeL", "I", "square", "Z", "oppositeZ, "triangle"]
+p(shapeKeys);
 const createDiv = (id, size) => {
   const newDiv = document.createElement("div");
   newDiv.style.cssText = `
@@ -168,10 +170,10 @@ createDivArray();
 ////////////////////// Next block/////////////////////////////////////////
 
 function createArrayNextShape() {
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 5; i++) {
     const array = [];
-    for (let j = 0; j < 5; j++) {
-      const div = createDiv("nextFigure", "20px");
+    for (let j = 0; j < 6; j++) {
+      const div = createDiv("nextFigure", "15px");
       array[j] = div;
     }
     nextBlockArray.push(array);
@@ -181,29 +183,28 @@ p(nextBlockArray);
 createArrayNextShape();
 
 const modelArrayNextShape = [
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
+  ["", "", "", "", "", ""],
+  ["", "", "", "", "", ""],
+  ["", "", "", "", "", ""],
+  ["", "", "", "", "", ""],
+  ["", "", "", "", "", ""],
 ];
 
 function displayInNextBlock() {
   cleanArray(modelArrayNextShape);
-  p(randomShape);
   for (
     let i = 0;
-    i < randomShape[0].length; //2
+    i < nextRandomShape[0].length; //2
     i++ // shapeRow
   )
-    for (let j = 0; j < randomShape[0][i].length; j++) {
+    for (let j = 0; j < nextRandomShape[0][i].length; j++) {
       //3
       // shapeColumn
-      if (randomShape[0][i][j] === "*") {
-        modelArrayNextShape[0 + i][2 + j] = colorArray[randomColor];
+      if (nextRandomShape[0][i][j] === "*") {
+        modelArrayNextShape[1 + i][2 + j] = colorArray[nextRandomColor];
       }
     }
   changeBgMainArray(modelArrayNextShape, nextBlockArray);
-  return nextShape();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -213,7 +214,7 @@ let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
-  nextShapeMainBlock = displayInNextBlock();
+  displayInNextBlock();
   startInterval();
 }
 
@@ -231,7 +232,6 @@ function pa(arr) {
         s += arr[i][j] + " ";
       }
     }
-    console.log(s);
   }
 }
 
@@ -245,6 +245,7 @@ function canMoveDown() {
       if (
         modelArray[i][j] !== "" &&
         modelArray[i][j] !== "-" &&
+        modelArray[i][j] !== "S" &&
         modelArray[i + 1][j] === "-"
       ) {
         return false;
@@ -259,7 +260,7 @@ function goDown() {
   pa(modelArray);
   if (canMoveDown()) {
     cleanArray(modelArray);
-    moveShape(currentPosition, randomShape);
+    moveShape();
     changeBgMainArray(modelArray, mainArrayDiv);
     currentRow++;
   } else {
@@ -281,13 +282,12 @@ function goDown() {
     }
 
     p("reached bottom");
-
-    nextShapeMainBlock = displayInNextBlock();
-    p(nextShapeMainBlock);
+    nextShape();
+    displayInNextBlock();
     currentColumn = 4;
     currentRow = 0;
     currentPosition = 0;
-    moveShape(currentPosition, nextShapeMainBlock);
+    moveShape();
     changeBgMainArray(modelArray, mainArrayDiv);
   }
 }
@@ -314,7 +314,7 @@ document.addEventListener("keydown", (e) => {
       if (currentColumn > 0) {
         currentColumn--;
         cleanArray(modelArray);
-        moveShape(currentPosition, randomShape);
+        moveShape();
         changeBgMainArray(modelArray, mainArrayDiv);
       }
       break;
@@ -326,7 +326,7 @@ document.addEventListener("keydown", (e) => {
       if (len + currentColumn < 10) {
         currentColumn++;
         cleanArray(modelArray);
-        moveShape(currentPosition, randomShape);
+        moveShape();
         changeBgMainArray(modelArray, mainArrayDiv);
       }
       break;
@@ -364,31 +364,92 @@ function cleanArray(arr) {
   }
 }
 
-function nextShape() {
-  randomColor = Math.floor(Math.random() * colorArray.length);
+function prepareNextShape() {
+  nextRandomColor = Math.floor(Math.random() * colorArray.length);
 
-  let randomShapeIndex = Math.floor(
-    Math.random() * [...Object.keys(shapes)].length
-  );
+  let randomShapeIndex = Math.floor(Math.random() * Object.keys(shapes).length);
   let shapeKey = shapeKeys[randomShapeIndex];
-  randomShape = shapes[shapeKey];
-  return randomShape;
+  p(shapeKey, "shapeKey");
+  nextRandomShape = shapes[shapeKey];
+  p(nextRandomShape);
 }
+
+function nextShape() {
+  if (nextRandomShape === null) {
+    prepareNextShape();
+  }
+
+  randomShape = nextRandomShape;
+  randomColor = nextRandomColor;
+  prepareNextShape();
+}
+
 nextShape();
 
-function moveShape(position, randomShape) {
+function moveShape() {
   for (
     let i = 0;
-    i < randomShape[position].length; //2
+    i < randomShape[currentPosition].length; //2
     i++ // shapeRow
-  )
-    for (let j = 0; j < randomShape[position][i].length; j++) {
+  ) {
+    for (let j = 0; j < randomShape[currentPosition][i].length; j++) {
       //3
       // shapeColumn
-      if (randomShape[position][i][j] === "*") {
+      if (randomShape[currentPosition][i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
+  }
+  console.log(modelArray);
+  doProjection();
+}
+console.log(modelArray.length);
+console.log(randomShape[currentPosition].length);
+
+function getProjectionRow() {
+  const h = randomShape[currentPosition].length;
+  const w = randomShape[currentPosition][0].length;
+  const shape = randomShape[currentPosition];
+  pa(modelArray);
+  for (let mi = currentRow + 1; mi < modelArray.length - h; mi++) {
+    for (let i = 0; i < h; i++) {
+      for (let j = 0; j < w; j++) {
+        p(mi, "mi");
+        if (
+          shape[i][j] === "*" &&
+          modelArray[mi + i + 1][currentColumn + j] === "-"
+        ) {
+          let r = mi + h - 1;
+          p(r, "result: ");
+          return r;
+        }
+      }
+    }
+  }
+
+  return modelArray.length - 1;
+}
+
+function doProjection() {
+  let projectionRow = getProjectionRow();
+  p(projectionRow, "projectionRow");
+  let startRow = projectionRow - randomShape[currentPosition].length + 1;
+  for (
+    let i = 0;
+    i < randomShape[currentPosition].length; //2
+    i++ // shapeRow
+  ) {
+    for (let j = 0; j < randomShape[currentPosition][0].length; j++) {
+      //3
+      // shapeColumn
+      if (
+        randomShape[currentPosition][i][j] === "*" &&
+        modelArray[startRow + i][currentColumn + j] === ""
+      ) {
+        modelArray[startRow + i][currentColumn + j] = "S";
+      }
+    }
+  }
 }
 
 function rotateShape() {
@@ -448,6 +509,9 @@ function changeBgMainArray(modelArr, mainArr) {
           break;
         case "-":
           mainArr[i][j].style.backgroundColor = "pink";
+          break;
+        case "S":
+          mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
           break;
         default:
           mainArr[i][j].style.backgroundColor = "transparent";
