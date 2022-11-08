@@ -256,6 +256,8 @@ function canMoveDown() {
 }
 
 function goDown() {
+  p(currentRow, "goDown - currentRow");
+  p(currentColumn, "goDown - currentColumn");
   if (paused) return;
   pa(modelArray);
   if (canMoveDown()) {
@@ -273,7 +275,6 @@ function goDown() {
           count++;
         }
       }
-      p(count, "count");
       if (count === 10) {
         p(i, "remove Row");
         modelArray.splice(i, 1);
@@ -302,6 +303,7 @@ document.addEventListener("keydown", (e) => {
   switch (e.code) {
     case "ArrowUp":
       //up
+      if (paused) return;
       cleanArray(modelArray);
       rotateShape();
       changeBgMainArray(modelArray, mainArrayDiv);
@@ -310,17 +312,21 @@ document.addEventListener("keydown", (e) => {
 
     case "ArrowLeft":
       //left
-      p(currentColumn);
-      if (currentColumn > 0) {
+      p(currentRow, "arrowLeft - currentRow");
+      p(currentColumn, "arrowLeft - currentColumn");
+      if (paused) return;
+      if (currentColumn > 0 && canMoveLeft()) {
         currentColumn--;
         cleanArray(modelArray);
         moveShape();
         changeBgMainArray(modelArray, mainArrayDiv);
       }
+
       break;
 
     case "ArrowRight":
       //right
+      if (paused) return;
       len = randomShape[currentPosition][0].length;
       p(len, "Length");
       if (len + currentColumn < 10) {
@@ -336,6 +342,24 @@ document.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+function canMoveLeft() {
+  const shape = randomShape[currentPosition];
+  const height = shape.length;
+  const width = shape[0].length;
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      p(shape, "shape");
+      if (
+        modelArray[currentRow + i][currentColumn + j - 1] === "-" &&
+        shape[i][j] === "*"
+      ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 function savePosition() {
   for (let i = 0; i < 20; i++) {
@@ -368,9 +392,9 @@ function prepareNextShape() {
   nextRandomColor = Math.floor(Math.random() * colorArray.length);
 
   let randomShapeIndex = Math.floor(Math.random() * Object.keys(shapes).length);
-  let shapeKey = shapeKeys[randomShapeIndex];
+  let shapeKey = shapeKeys[randomShapeIndex]; // "L"
   p(shapeKey, "shapeKey");
-  nextRandomShape = shapes[shapeKey];
+  nextRandomShape = shapes[shapeKey]; //object "L"
   p(nextRandomShape);
 }
 
@@ -390,37 +414,30 @@ function moveShape() {
   for (
     let i = 0;
     i < randomShape[currentPosition].length; //2
-    i++ // shapeRow
+    i++
   ) {
     for (let j = 0; j < randomShape[currentPosition][i].length; j++) {
-      //3
-      // shapeColumn
       if (randomShape[currentPosition][i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
   }
-  console.log(modelArray);
   doProjection();
 }
-console.log(modelArray.length);
-console.log(randomShape[currentPosition].length);
 
 function getProjectionRow() {
   const h = randomShape[currentPosition].length;
   const w = randomShape[currentPosition][0].length;
   const shape = randomShape[currentPosition];
-  pa(modelArray);
-  for (let mi = currentRow + 1; mi < modelArray.length - h; mi++) {
+
+  for (let mi = currentRow; mi < modelArray.length - h; mi++) {
     for (let i = 0; i < h; i++) {
       for (let j = 0; j < w; j++) {
-        p(mi, "mi");
         if (
           shape[i][j] === "*" &&
           modelArray[mi + i + 1][currentColumn + j] === "-"
         ) {
           let r = mi + h - 1;
-          p(r, "result: ");
           return r;
         }
       }
@@ -437,11 +454,9 @@ function doProjection() {
   for (
     let i = 0;
     i < randomShape[currentPosition].length; //2
-    i++ // shapeRow
+    i++
   ) {
     for (let j = 0; j < randomShape[currentPosition][0].length; j++) {
-      //3
-      // shapeColumn
       if (
         randomShape[currentPosition][i][j] === "*" &&
         modelArray[startRow + i][currentColumn + j] === ""
@@ -469,17 +484,15 @@ function rotateShape() {
     currentRow = 20 - twoDimArr.length;
   }
   p(currentColumn, "currentColumn");
-  for (
-    let i = 0;
-    i < twoDimArr.length;
-    i++ //row
-  )
+  for (let i = 0; i < twoDimArr.length; i++) {
     for (let j = 0; j < twoDimArr[i].length; j++) {
-      // column
       if (twoDimArr[i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
+  }
+
+  doProjection();
 }
 
 function changeBgMainArray(modelArr, mainArr) {
