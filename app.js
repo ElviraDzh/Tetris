@@ -222,7 +222,9 @@ function pause() {
   paused = !paused;
 }
 
-function pa(arr) {
+function pa(arr, str) {
+  if (str != undefined) console.log(str + ": ");
+
   for (let i = 0; i < arr.length; i++) {
     let s = "";
     for (let j = 0; j < arr[i].length; j++) {
@@ -232,12 +234,16 @@ function pa(arr) {
         s += arr[i][j] + " ";
       }
     }
+    console.log(s);
   }
 }
 
 function canMoveDown() {
-  const twoDimLength = randomShape[currentPosition].length;
-  if (parseInt(twoDimLength) + parseInt(currentRow) >= 21) {
+  const height = randomShape[currentPosition].length;
+  p(height, "canMoveDown - height");
+  p(currentRow, "canMoveDown - currentRow");
+  p(parseInt(height) + parseInt(currentRow) > 19, "canMoveDown - result");
+  if (height + currentRow >= 21) {
     return false;
   }
   for (let i = 0; i < modelArray.length - 1; i++) {
@@ -256,13 +262,14 @@ function canMoveDown() {
 }
 
 function goDown() {
-  p(currentRow, "goDown - currentRow");
+  p(currentRow, "goDown - currentRow"); //16
   p(currentColumn, "goDown - currentColumn");
   if (paused) return;
-  pa(modelArray);
+
+  //pa(modelArray);
   if (canMoveDown()) {
     cleanArray(modelArray);
-    moveShape();
+    copyShapeToModelArray();
     changeBgMainArray(modelArray, mainArrayDiv);
     currentRow++;
   } else {
@@ -288,8 +295,24 @@ function goDown() {
     currentColumn = 4;
     currentRow = 0;
     currentPosition = 0;
-    moveShape();
+    copyShapeToModelArray();
     changeBgMainArray(modelArray, mainArrayDiv);
+    gameOver();
+  }
+}
+
+function gameOver() {
+  for (
+    let i = randomShape[currentPosition].length - 1;
+    i < randomShape[currentPosition].length;
+    i++
+  ) {
+    for (let j = 0; j < randomShape[currentPosition][i].length; j++) {
+      if (modelArray[i + 1][currentColumn + j] === "-") {
+        clearInterval(timerInterval);
+        document.querySelector(".game-over").style.display = "block";
+      }
+    }
   }
 }
 
@@ -304,21 +327,23 @@ document.addEventListener("keydown", (e) => {
     case "ArrowUp":
       //up
       if (paused) return;
-      cleanArray(modelArray);
-      rotateShape();
-      changeBgMainArray(modelArray, mainArrayDiv);
+      if (canRotateShape()) {
+        cleanArray(modelArray);
+        rotateShape();
+        changeBgMainArray(modelArray, mainArrayDiv);
+      }
 
       break;
 
     case "ArrowLeft":
       //left
-      p(currentRow, "arrowLeft - currentRow");
-      p(currentColumn, "arrowLeft - currentColumn");
       if (paused) return;
+
       if (currentColumn > 0 && canMoveLeft()) {
+        p("MOVE LEFT");
         currentColumn--;
         cleanArray(modelArray);
-        moveShape();
+        copyShapeToModelArray();
         changeBgMainArray(modelArray, mainArrayDiv);
       }
 
@@ -329,10 +354,10 @@ document.addEventListener("keydown", (e) => {
       if (paused) return;
       len = randomShape[currentPosition][0].length;
       p(len, "Length");
-      if (len + currentColumn < 10) {
+      if (len + currentColumn < 10 && canMoveRight()) {
         currentColumn++;
         cleanArray(modelArray);
-        moveShape();
+        copyShapeToModelArray();
         changeBgMainArray(modelArray, mainArrayDiv);
       }
       break;
@@ -347,13 +372,53 @@ function canMoveLeft() {
   const shape = randomShape[currentPosition];
   const height = shape.length;
   const width = shape[0].length;
+
+  pa(shape, "canMoveLeft - shape");
+  p(currentRow, "canMoveLeft - currentRow");
+  //p(height, "canMoveLeft - height");
+  //p(width, "canMoveLeft - width");
+
+  if (height + currentRow >= 21 || currentRow < 1) {
+    return false;
+  }
+
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
-      p(shape, "shape");
       if (
-        modelArray[currentRow + i][currentColumn + j - 1] === "-" &&
+        modelArray[currentRow - 1 + i][currentColumn + j - 1] === "-" &&
         shape[i][j] === "*"
       ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function canMoveRight() {
+  const shape = randomShape[currentPosition];
+  const height = shape.length;
+  const width = shape[0].length;
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      if (
+        modelArray[currentRow + i][currentColumn + j + 1] === "-" &&
+        shape[i][j] === "*"
+      ) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+function canRotateShape() {
+  const shape = randomShape[currentPosition];
+  const height = shape.length;
+  const width = shape[0].length;
+  for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+      if (modelArray[currentRow + i + 1][currentColumn + j] === "-") {
         return false;
       }
     }
@@ -410,14 +475,17 @@ function nextShape() {
 
 nextShape();
 
-function moveShape() {
-  for (
-    let i = 0;
-    i < randomShape[currentPosition].length; //2
-    i++
-  ) {
-    for (let j = 0; j < randomShape[currentPosition][i].length; j++) {
-      if (randomShape[currentPosition][i][j] === "*") {
+function copyShapeToModelArray() {
+  const shape = randomShape[currentPosition];
+  const h = shape.length;
+  const w = shape[0].length;
+
+  p(currentRow, "copyShapeToModelArray - currentRow");
+  pa(shape, "copyShapeToModelArray - shape");
+
+  for (let i = 0; i < h; i++) {
+    for (let j = 0; j < w; j++) {
+      if (shape[i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
