@@ -209,7 +209,7 @@ function displayInNextBlock() {
 
 //////////////////////////////////////////////////////////////////////////////
 
-let currentRow = 0;
+let currentRow = -1;
 let currentColumn = 4;
 let currentPosition = 0;
 
@@ -243,7 +243,7 @@ function canMoveDown() {
   p(height, "canMoveDown - height");
   p(currentRow, "canMoveDown - currentRow");
   p(parseInt(height) + parseInt(currentRow) > 19, "canMoveDown - result");
-  if (height + currentRow >= 21) {
+  if (height + currentRow >= 20) {
     return false;
   }
   for (let i = 0; i < modelArray.length - 1; i++) {
@@ -268,10 +268,10 @@ function goDown() {
 
   //pa(modelArray);
   if (canMoveDown()) {
+    currentRow++;
     cleanArray(modelArray);
     copyShapeToModelArray();
     changeBgMainArray(modelArray, mainArrayDiv);
-    currentRow++;
   } else {
     savePosition();
     for (let i = 0; i < modelArray.length; i++) {
@@ -293,10 +293,10 @@ function goDown() {
     nextShape();
     displayInNextBlock();
     currentColumn = 4;
-    currentRow = 0;
+    currentRow = -1;
     currentPosition = 0;
-    copyShapeToModelArray();
-    changeBgMainArray(modelArray, mainArrayDiv);
+    //copyShapeToModelArray();
+    //changeBgMainArray(modelArray, mainArrayDiv);
     gameOver();
   }
 }
@@ -339,7 +339,7 @@ document.addEventListener("keydown", (e) => {
       //left
       if (paused) return;
 
-      if (currentColumn > 0 && canMoveLeft()) {
+      if (canMoveLeft()) {
         p("MOVE LEFT");
         currentColumn--;
         cleanArray(modelArray);
@@ -352,9 +352,8 @@ document.addEventListener("keydown", (e) => {
     case "ArrowRight":
       //right
       if (paused) return;
-      len = randomShape[currentPosition][0].length;
-      p(len, "Length");
-      if (len + currentColumn < 10 && canMoveRight()) {
+
+      if (canMoveRight()) {
         currentColumn++;
         cleanArray(modelArray);
         copyShapeToModelArray();
@@ -378,14 +377,14 @@ function canMoveLeft() {
   //p(height, "canMoveLeft - height");
   //p(width, "canMoveLeft - width");
 
-  if (height + currentRow >= 21 || currentRow < 1) {
+  if (currentColumn === 0 || height + currentRow >= 21 || currentRow < 0) {
     return false;
   }
 
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       if (
-        modelArray[currentRow - 1 + i][currentColumn + j - 1] === "-" &&
+        modelArray[currentRow + i][currentColumn + j - 1] === "-" &&
         shape[i][j] === "*"
       ) {
         return false;
@@ -399,6 +398,15 @@ function canMoveRight() {
   const shape = randomShape[currentPosition];
   const height = shape.length;
   const width = shape[0].length;
+
+  if (
+    width + currentColumn === 10 ||
+    height + currentRow >= 21 ||
+    currentRow < 0
+  ) {
+    return false;
+  }
+
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       if (
