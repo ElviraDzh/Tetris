@@ -561,8 +561,6 @@ function rotateShape() {
   const h = shape.length;
   const w = shape[0].length;
 
-  // len = randomShape[currentPosition][0].length;
-
   if (currentColumn + w > 9) {
     currentColumn = 10 - w;
   }
