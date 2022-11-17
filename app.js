@@ -417,14 +417,25 @@ function canMoveRight() {
 }
 
 function canRotateShape() {
+  pa(randomShape[currentPosition], "canRotateShape: randomShape");
+  p(currentRow, "currentRow");
+  p(currentColumn, "currentColumn");
+
   let position = currentPosition;
   position++;
+
   if (position > Object.keys(randomShape).length - 1) {
     position = 0;
   }
+
   const shape = randomShape[position];
   const height = shape.length;
   const width = shape[0].length;
+
+  if (currentRow < 0 || currentRow + height > 19) {
+    return false;
+  }
+
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       if (
@@ -546,18 +557,19 @@ function rotateShape() {
   if (currentPosition > Object.keys(randomShape).length - 1) {
     currentPosition = 0;
   }
-  len = randomShape[currentPosition][0].length;
+  const shape = randomShape[currentPosition];
+  const h = shape.length;
+  const w = shape[0].length;
 
-  if (currentColumn + len > 9) {
-    currentColumn = 10 - len;
+  // len = randomShape[currentPosition][0].length;
+
+  if (currentColumn + w > 9) {
+    currentColumn = 10 - w;
   }
-  const twoDimArr = randomShape[currentPosition];
-  if (currentRow + twoDimArr.length > 16) {
-    currentRow = 20 - twoDimArr.length;
-  }
-  for (let i = 0; i < twoDimArr.length; i++) {
-    for (let j = 0; j < twoDimArr[i].length; j++) {
-      if (twoDimArr[i][j] === "*") {
+
+  for (let i = 0; i < h; i++) {
+    for (let j = 0; j < w; j++) {
+      if (shape[i][j] === "*") {
         modelArray[currentRow + i][currentColumn + j] = colorArray[randomColor];
       }
     }
