@@ -20,121 +20,29 @@
   </head>
   <body>
     <div class="container">
-      <div class="panel clearfix">
-        <div class="score-block">
-          <p class="label">level: <span id="userLevel">1</span></p>
-          <p class="label">lines: <span id="userLines">0</span></p>
-        </div>
-        <div class="next-block">
-          <div class="next-block-inner">
-            <p class="label">next:</p>
-            <div id="nextFigure"></div>
-          </div>
-        </div>
+      <div class="panel">
         <aside class="sidebar">
-          <div class="sidebar-links-top">
-            <a href="#" class="sidebar-link">login</a>
-            <a href="#" class="sidebar-link">sign up</a>
-          </div>
-          <div class="language-right">
-            <div class="language-dropdown">
-              <a href="#" class="language-link"
-                ><i class="fa-solid fa-globe"><sup>En</sup></i></a
-              >
-              <ul class="lang-dropdown-content">
-                <li><a href="#">Russian</a></li>
-                <li><a href="#">English</a></li>
-              </ul>
+          <p class="text-next-shape">next shape</p>
+          <div id="nextFigure"></div>
+          <div class="score-block">
+            <div class="wrap-score wrap-score-1">
+              <p class="text-score-block">level</p>
+              <span id="userLevel">1</span>
+            </div>
+            <div class="wrap-score">
+              <p class="text-score-block">lines</p>
+              <span id="userLines">0</span>
             </div>
           </div>
           <div class="btns-sidebar">
             <button class="btn" id="play-button" onclick="displayFigures()">
               play
             </button>
-            <!-- <button class="btn" id="reset-button" onclick="reset()"> -->
-            <button class="btn" id="reset-button">reset</button>
             <button class="btn" id="pause-button" onclick="pause()">
               pause
             </button>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Level</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Nurbakyt</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Eldan</td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Elvira</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Aisal</td>
-                <td>6</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Gulya</td>
-                <td>7</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Askat</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>Eldan</td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Cholpon</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>Ayim</td>
-                <td>6</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Gulnura</td>
-                <td>7</td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>Gulmira</td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Asel</td>
-                <td>8</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="sidebar-links-bottom">
-            <a href="#" class="sidebar-bottom-link author-link"
-              >support author</a
-            >
-            <a href="#" class="sidebar-bottom-link help-link">help</a>
-            <a href="#" class="sidebar-bottom-link feedback-link">feedback</a>
-          </div>
+          <img src="images/tetrisBlitz.png" alt="tetris" />
         </aside>
 
         <div class="main-area" id="playArea"></div>

@@ -17,7 +17,7 @@ let randomShape;
 let nextRandomShape = null;
 let nextRandomColor;
 
-const colorArray = ["B", "G", "O", "Y", "W", "P"];
+const colorArray = ["B", "G", "F", "Y", "O", "P"];
 
 let randomNumRow = 0;
 let randomNumColumn = 4;
@@ -146,8 +146,8 @@ const createDiv = (id, size) => {
   newDiv.style.cssText = `
   width: ${size};
   height: ${size};
-  border-bottom:1px solid grey;
-  border-right:1px solid grey;`;
+  border-bottom:1px solid black;
+  border-right:1px solid black;`;
   const area = document.getElementById(`${id}`);
   area.append(newDiv);
 
@@ -172,8 +172,8 @@ createDivArray();
 function createArrayNextShape() {
   for (let i = 0; i < 5; i++) {
     const array = [];
-    for (let j = 0; j < 6; j++) {
-      const div = createDiv("nextFigure", "15px");
+    for (let j = 0; j < 8; j++) {
+      const div = createDiv("nextFigure", "22px");
       array[j] = div;
     }
     nextBlockArray.push(array);
@@ -201,7 +201,7 @@ function displayInNextBlock() {
       //3
       // shapeColumn
       if (nextRandomShape[0][i][j] === "*") {
-        modelArrayNextShape[1 + i][2 + j] = colorArray[nextRandomColor];
+        modelArrayNextShape[1 + i][3 + j] = colorArray[nextRandomColor];
       }
     }
   changeBgMainArray(modelArrayNextShape, nextBlockArray);
@@ -455,9 +455,9 @@ function savePosition() {
       if (
         modelArray[i][j] === "B" ||
         modelArray[i][j] === "G" ||
-        modelArray[i][j] === "O" ||
+        modelArray[i][j] === "F" ||
         modelArray[i][j] === "Y" ||
-        modelArray[i][j] === "W" ||
+        modelArray[i][j] === "O" ||
         modelArray[i][j] === "P"
       ) {
         modelArray[i][j] = "-";
@@ -595,18 +595,17 @@ function changeBgMainArray(modelArr, mainArr) {
         case "P":
           mainArr[i][j].style.backgroundColor = "purple";
           break;
+        case "F":
+          mainArr[i][j].style.backgroundColor = "fuchsia";
+          break;
         case "O":
           mainArr[i][j].style.backgroundColor = "orangered";
           break;
-        case "W":
-          mainArr[i][j].style.backgroundColor = "white";
-          break;
         case "-":
-          mainArr[i][j].style.backgroundColor = "pink";
+          mainArr[i][j].style.backgroundColor = "sandybrown";
           break;
         case "S":
           mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
-          break;
         default:
           mainArr[i][j].style.backgroundColor = "transparent";
       }
