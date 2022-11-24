@@ -214,8 +214,8 @@ let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
-  displayInNextBlock();
   startInterval();
+  displayInNextBlock();
 }
 
 function pause() {
