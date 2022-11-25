@@ -1,5 +1,3 @@
-console.log('TEST 2');
-
 function p(v, s) {
   if (s === null || s === undefined) {
     console.log(v);
