@@ -14,7 +14,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/all.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/media.css" />
   </head>
@@ -43,31 +42,27 @@
             </button>
           </div>
           <img src="images/tetrisBlitz.png" alt="tetris" />
+          <div class="control-block">
+              <button class="arrow-btn" id="mob-arrow-left">
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+              <button class="arrow-btn" id="mob-arrow-right">
+                <i class="fa-solid fa-arrow-right-long" ></i>
+              </button>
+              <button class="arrow-btn arrow-up" id="mob-arrow-up">
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+              <button class="arrow-btn arrow-down" id="mob-arrow-down">
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
+             
+          </div>
         </aside>
 
         <div class="main-area" id="playArea"></div>
         <div class="game-over" id="gameOver">
           <h1 class="game-over-title">Game over</h1>
         </div>
-        <div class="control-block">
-          <div class="arrow-buttons">
-            <button class="arrow-btn">
-              <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <button class="arrow-btn arrow-up">
-              <i class="fa-solid fa-arrow-up"></i>
-            </button>
-            <button class="arrow-btn">
-              <i class="fa-solid fa-arrow-down"></i>
-            </button>
-            <button class="arrow-btn">
-              <i class="fa-solid fa-arrow-right-long"></i>
-            </button>
-          </div>
-          <div class="btns-mob">
-            <button class="btn btn-mob" id="reset-button">reset</button>
-            <button class="btn btn-mob" id="pause-button">pause</button>
-          </div>
         </div>
       </div>
     </div>

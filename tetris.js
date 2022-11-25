@@ -141,24 +141,20 @@ const shapes = {
 };
 let shapeKeys = Object.keys(shapes); //["L", "oppositeL", "I", "square", "Z", "oppositeZ, "triangle"]
 p(shapeKeys);
-const createDiv = (id, size) => {
+const createDiv = (id, className) => {
   const newDiv = document.createElement("div");
-  newDiv.style.cssText = `
-  width: ${size};
-  height: ${size};
-  border-bottom:1px solid black;
-  border-right:1px solid black;`;
+  newDiv.classList.add(className);
   const area = document.getElementById(`${id}`);
   area.append(newDiv);
 
   return newDiv;
 };
-
+console.log(window.innerHeight);
 function createDivArray() {
   for (let i = 0; i < 20; i++) {
     const array = [];
     for (let j = 0; j < 10; j++) {
-      const div = createDiv("playArea", "32px");
+      const div = createDiv("playArea", "squaresInMainArea");
       array[j] = div;
     }
     mainArrayDiv.push(array);
@@ -173,7 +169,7 @@ function createArrayNextShape() {
   for (let i = 0; i < 5; i++) {
     const array = [];
     for (let j = 0; j < 8; j++) {
-      const div = createDiv("nextFigure", "22px");
+      const div = createDiv("nextFigure", "squaresNextShapeBlock");
       array[j] = div;
     }
     nextBlockArray.push(array);
@@ -214,8 +210,8 @@ let currentColumn = 4;
 let currentPosition = 0;
 
 function displayFigures() {
-  startInterval();
   displayInNextBlock();
+  startInterval();
 }
 
 function pause() {
@@ -605,10 +601,63 @@ function changeBgMainArray(modelArr, mainArr) {
           mainArr[i][j].style.backgroundColor = "sandybrown";
           break;
         case "S":
-          mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
+          // mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
+          mainArr[i][j].style.backgroundColor = "black";
         default:
           mainArr[i][j].style.backgroundColor = "transparent";
       }
     }
   }
 }
+
+// mobile, planshet
+const arrowLeftBtnMob = document.getElementById("mob-arrow-left");
+const arrowUpBtnMob = document.getElementById("mob-arrow-up");
+const arrowDownBtnMob = document.getElementById("mob-arrow-down");
+const arrowRightBtnMob = document.getElementById("mob-arrow-right");
+
+arrowLeftBtnMob.addEventListener("click", () => {
+  if (paused) return;
+
+  if (canMoveLeft()) {
+    currentColumn--;
+    cleanArray(modelArray);
+    copyShapeToModelArray();
+    changeBgMainArray(modelArray, mainArrayDiv);
+  }
+});
+
+arrowRightBtnMob.addEventListener("click", () => {
+  if (paused) return;
+
+  if (canMoveRight()) {
+    currentColumn++;
+    cleanArray(modelArray);
+    copyShapeToModelArray();
+    changeBgMainArray(modelArray, mainArrayDiv);
+  }
+});
+
+arrowRightBtnMob.addEventListener("click", () => {
+  if (paused) return;
+
+  if (canMoveRight()) {
+    currentColumn++;
+    cleanArray(modelArray);
+    copyShapeToModelArray();
+    changeBgMainArray(modelArray, mainArrayDiv);
+  }
+});
+
+arrowUpBtnMob.addEventListener("click", () => {
+  if (paused) return;
+  if (canRotateShape()) {
+    cleanArray(modelArray);
+    rotateShape();
+    changeBgMainArray(modelArray, mainArrayDiv);
+  }
+});
+
+arrowDownBtnMob.addEventListener("click", () => {
+  goDown();
+});
