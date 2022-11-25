@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.9em;
+    /* flex-wrap: wrap; */
+    gap: 3em;
   }
 
   img {
@@ -25,7 +25,7 @@
 
 @media screen and (max-width: 340px) {
   body {
-    font-size: 6px;
+    font-size: 7px;
   }
 }
 
