@@ -506,6 +506,7 @@ function copyShapeToModelArray() {
       }
     }
   }
+  console.log(modelArray);
   doProjection();
 }
 
@@ -603,8 +604,8 @@ function changeBgMainArray(modelArr, mainArr) {
           mainArr[i][j].style.backgroundColor = "sandybrown";
           break;
         case "S":
-          // mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
-          mainArr[i][j].style.backgroundColor = "black";
+          mainArr[i][j].style.backgroundColor = "rgb(32, 26, 26)";
+          break;
         default:
           mainArr[i][j].style.backgroundColor = "transparent";
       }
@@ -612,7 +613,7 @@ function changeBgMainArray(modelArr, mainArr) {
   }
 }
 
-// mobile, planshet
+// mobile, tablet
 const arrowLeftBtnMob = document.getElementById("mob-arrow-left");
 const arrowUpBtnMob = document.getElementById("mob-arrow-up");
 const arrowDownBtnMob = document.getElementById("mob-arrow-down");
