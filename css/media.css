@@ -23,11 +23,19 @@
   body {
     font-size: 8px;
   }
+
+  .game-over .game-over-title {
+    top: 42%;
+  }
 }
 
 @media screen and (max-width: 340px) {
   body {
     font-size: 7px;
+  }
+
+  .game-over .game-over-title {
+    top: 45%;
   }
 }
 

@@ -177,7 +177,6 @@ img {
   height: 100vh;
   z-index: 10;
   display: none;
-  font-family: cursive;
 }
 .game-over .game-over-title,
 .score-block-gameOver {
@@ -186,6 +185,11 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3em;
+}
+
+.game-over .game-over-title {
+  font-size: 4em;
+  font-family: cursive;
 }
 
 .score-block-gameOver {
