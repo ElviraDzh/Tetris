@@ -56,12 +56,13 @@ img {
   padding: 0.7em;
 }
 
-.score-block .wrap-score-1 {
+.wrap-score-1 {
   border-bottom: none;
 }
 
 .text-next-shape,
-.text-score-block {
+.text-score-block,
+.subtitle-score-block {
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -114,7 +115,7 @@ img {
 
   border: none;
   border-radius: 0.4em;
-  font-weight: 500;
+  font-weight: 900;
   margin: 0 auto 1em auto;
 }
 .btn:hover {
@@ -176,13 +177,25 @@ img {
   height: 100vh;
   z-index: 10;
   display: none;
+  font-family: cursive;
 }
-.game-over .game-over-title {
+.game-over .game-over-title,
+.score-block-gameOver {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 3rem;
+  font-size: 3em;
+}
+
+.score-block-gameOver {
+  width: 80%;
+  font-size: 2em;
+  top: 55%;
+}
+
+.result-gameOver {
+  text-align: center;
 }
 
 .squaresInMainArea {

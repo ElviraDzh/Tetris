@@ -309,6 +309,8 @@ function gameOver() {
       if (modelArray[i][currentColumn + j] === "-" && shape[i][j] === "*") {
         clearInterval(timerInterval);
         document.querySelector(".game-over").style.display = "block";
+        document.getElementById("userLevel-gameOver").innerHTML = levelScore;
+        document.getElementById("userLines-gameOver").innerHTML = lineScore;
       }
     }
   }

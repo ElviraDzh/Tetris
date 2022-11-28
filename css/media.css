@@ -14,9 +14,12 @@
   body {
     font-size: 10px;
   }
+  .game-over .game-over-title {
+    top: 40%;
+  }
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 415px) {
   body {
     font-size: 8px;
   }
