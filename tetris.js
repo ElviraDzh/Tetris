@@ -1,4 +1,4 @@
-console.log('test');
+console.log('test 2');
 
 function p(v, s) {
   if (s === null || s === undefined) {
