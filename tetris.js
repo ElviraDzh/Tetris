@@ -1,4 +1,4 @@
-console.log('test 2');
+console.log("test 2");
 
 function p(v, s) {
   if (s === null || s === undefined) {
@@ -512,36 +512,10 @@ function copyShapeToModelArray() {
   doProjection();
 }
 
-function getProjectionRow() {
-  const h = randomShape[currentPosition].length;
-  const w = randomShape[currentPosition][0].length;
-  const shape = randomShape[currentPosition];
-
-  for (let mi = currentRow; mi < modelArray.length - h; mi++) {
-    for (let i = 0; i < h; i++) {
-      for (let j = 0; j < w; j++) {
-        if (
-          shape[i][j] === "*" &&
-          modelArray[mi + i + 1][currentColumn + j] === "-"
-        ) {
-          let r = mi + h - 1;
-          return r;
-        }
-      }
-    }
-  }
-
-  return modelArray.length - 1;
-}
-
 function doProjection() {
-  let projectionRow = getProjectionRow();
-  let startRow = projectionRow - randomShape[currentPosition].length + 1;
-  for (
-    let i = 0;
-    i < randomShape[currentPosition].length; //2
-    i++
-  ) {
+  let startRow = getProjectionRow();
+
+  for (let i = 0; i < randomShape[currentPosition].length; i++) {
     for (let j = 0; j < randomShape[currentPosition][0].length; j++) {
       if (
         randomShape[currentPosition][i][j] === "*" &&
@@ -551,6 +525,32 @@ function doProjection() {
       }
     }
   }
+}
+
+function getProjectionRow() {
+  for (let i = currentRow; i < modelArray.length; i++) {
+    if (hasProjectionCollision(i)) {
+      return i - 1;
+    }
+  }
+}
+
+function hasProjectionCollision(row) {
+  const shape = randomShape[currentPosition];
+  const h = shape.length;
+  const w = shape[0].length;
+
+  for (let i = 0; i < h; i++) {
+    for (let j = 0; j < w; j++) {
+      if (
+        modelArray[row + i] === undefined ||
+        (shape[i][j] === "*" && modelArray[row + i][currentColumn + j] === "-")
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 function rotateShape() {
@@ -666,3 +666,15 @@ arrowUpBtnMob.addEventListener("click", () => {
 arrowDownBtnMob.addEventListener("click", () => {
   goDown();
 });
+
+// doProjection(
+//   Let startRow =
+//   Вместо
+//   );
+
+//   Цель функции: возвращает строку
+//   getProjectionRow()
+
+//   Здесь будет 2 цикл i = currentRow в modelArray. Будет условие: функция hasProjectionCollision(i) возвращает true/false return I - 1
+
+//   hasProjectionCollision(row) return true or false(условие на проверку underlined or (“-“ and “*”))
