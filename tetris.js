@@ -666,15 +666,3 @@ arrowUpBtnMob.addEventListener("click", () => {
 arrowDownBtnMob.addEventListener("click", () => {
   goDown();
 });
-
-// doProjection(
-//   Let startRow =
-//   Вместо
-//   );
-
-//   Цель функции: возвращает строку
-//   getProjectionRow()
-
-//   Здесь будет 2 цикл i = currentRow в modelArray. Будет условие: функция hasProjectionCollision(i) возвращает true/false return I - 1
-
-//   hasProjectionCollision(row) return true or false(условие на проверку underlined or (“-“ and “*”))
